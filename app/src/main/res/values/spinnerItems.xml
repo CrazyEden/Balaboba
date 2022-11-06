@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinnerItems">
+        <item> Без стиля</item>
+        <item> Инструкция по применению</item>
+        <item> Рецепты</item>
+        <item> Народные мудрости</item>
+        <item> Короткие истории</item>
+        <item> Короче, Википедия</item>
+        <item> Синопсисы фильмов</item>
+    </string-array>
+</resources>
