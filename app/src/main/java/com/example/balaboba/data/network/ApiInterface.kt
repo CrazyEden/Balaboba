@@ -8,5 +8,5 @@ import retrofit2.http.POST
 
 interface ApiInterface {
     @POST("yalm/text3")
-    suspend fun getList(@Body req: BalabobaRequest) : Response<BalabobaRespone>
+    suspend fun loadResponse(@Body req: BalabobaRequest) : Response<BalabobaRespone>
 }

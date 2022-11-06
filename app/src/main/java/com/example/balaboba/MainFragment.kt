@@ -1,15 +1,15 @@
 package com.example.balaboba
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.balaboba.databinding.FragmentMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private val vModel:MainViewModel by viewModels()
@@ -32,63 +32,23 @@ class MainFragment : Fragment() {
             binding.txt.text = it
         }
         binding.button.setOnClickListener {
-            println("SELECTED POSITION = ${binding.spinner.selectedItemPosition}")
-            println("FILTER = ") //TODO filter
+            var intro = 0 //по умолчанию без стиля
             when(binding.spinner.selectedItemPosition){
-                0->{
-                    vModel.load(
-                        query = binding.txt.text.toString(),
-                        intro = 0,
-                        filter = binding.switch1.isActivated
-                    )
-                }
-                1->{
-                    vModel.load(
-                        query = binding.txt.text.toString(),
-                        intro = 6,
-                        filter = binding.switch1.isActivated
-                    )
-                }
-                2->{
-                    vModel.load(
-                        query = binding.txt.text.toString(),
-                        intro = 8,
-                        filter = binding.switch1.isActivated
-                    )
-                }
-                3->{
-                    vModel.load(
-                        query = binding.txt.text.toString(),
-                        intro = 9,
-                        filter = binding.switch1.isActivated
-                    )
-                }
-                4->{
-                    vModel.load(
-                        query = binding.txt.text.toString(),
-                        intro = 11,
-                        filter = binding.switch1.isActivated
-                    )
-                }
-                5->{
-                    vModel.load(
-                        query = binding.txt.text.toString(),
-                        intro = 24,
-                        filter = binding.switch1.isActivated
-                    )
-                }
-                6->{
-                    vModel.load(
-                        query = binding.txt.text.toString(),
-                        intro = 25,
-                        filter = binding.switch1.isActivated
-                    )
-                }
+                1 -> intro = 6
+                2 -> intro = 8
+                3 -> intro = 9
+                4 -> intro = 11
+                5 -> intro = 24
+                6 -> intro = 25
             }
-
+            vModel.load(
+                query = binding.txt.text.toString(),
+                intro = intro,
+                filter = binding.switch1.isActivated
+            )
             println("query = " + binding.inputText.text.toString())
-            println("selected spinner = " + binding.spinner.selectedItemPosition) //0
-
+            println("selected intro = $intro")
+            println("filter = ${binding.switch1.isActivated}")
         }
 
 

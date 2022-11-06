@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Standart">Напишите что-нибудь и получите продолжение от Балабобы</string>
+    <string name="User_manual">Перечислите несколько предметов, а Балабоба придумает, как их использовать</string>
+    <string name="Recipes">Перечислите съедобные ингредиенты, а Балабоба придумает рецепт с ними</string>
+    <string name="Short_stories">Начните писать историю, а Балабобы продолжит — иногда страшно, но чаще смешно</string>
+    <string name="Wikipedia_simplified">Напишите какое-нибудь слово, а Балабоба даст этому определение</string>
+    <string name="Movie_synopses">Напишите название фильма (существующего или нет), а Балабоба расскажет вам, о чем он</string>
+    <string name="Folk_wisdom">Напишите что-нибудь и получите народную мудрость</string>
+</resources>
