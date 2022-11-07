@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
+        android:minHeight="48dp"
         android:text="vs code"
         tools:text="Hello World!" />
 
@@ -19,6 +20,7 @@
         android:id="@+id/switch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:text="Filter" />
 
     <Spinner

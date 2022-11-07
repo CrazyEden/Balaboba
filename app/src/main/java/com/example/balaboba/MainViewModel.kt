@@ -20,8 +20,8 @@ class MainViewModel @Inject constructor(
         val res = rep.load(BalabobaRequest(
             query = query,
             intro = intro,
-            filter = filter.toString().toInt())//TODO мини костыль
-        )
+            filter = filter
+        ))
 
         println("CODE = ${res.code()}")
         println("CODE = ${res.errorBody()}")

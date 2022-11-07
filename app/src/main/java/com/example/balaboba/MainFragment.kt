@@ -44,11 +44,12 @@ class MainFragment : Fragment() {
             vModel.load(
                 query = binding.txt.text.toString(),
                 intro = intro,
-                filter = binding.switch1.isActivated
+                filter = binding.switch1.isChecked
             )
+
             println("query = " + binding.inputText.text.toString())
             println("selected intro = $intro")
-            println("filter = ${binding.switch1.isActivated}")
+            println("filter = ${binding.switch1.isChecked}")
         }
 
 
