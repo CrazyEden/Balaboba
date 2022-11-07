@@ -1,9 +1,8 @@
 package com.example.balaboba
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.balaboba.databinding.FragmentMainBinding
@@ -16,6 +15,7 @@ class MainFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
 
     }
 
@@ -30,8 +30,18 @@ class MainFragment : Fragment() {
             if(it.isNullOrEmpty()) return@observe
             println(it)
             binding.txt.text = it
+            binding.progressBar.visibility = View.GONE
+            binding.txt.visibility = View.VISIBLE
+            binding.button.isClickable = true
         }
         binding.button.setOnClickListener {
+            if(binding.inputText.text.isNullOrEmpty()) {
+                Toast.makeText(context,getString(R.string.input_text_is_empty), Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            binding.progressBar.visibility = View.VISIBLE
+            binding.txt.visibility = View.GONE
+            binding.button.isClickable = false
             var intro = 0 //по умолчанию без стиля
             when(binding.spinner.selectedItemPosition){
                 1 -> intro = 6
@@ -42,14 +52,10 @@ class MainFragment : Fragment() {
                 6 -> intro = 25
             }
             vModel.load(
-                query = binding.txt.text.toString(),
+                query = binding.inputText.text.toString(),
                 intro = intro,
                 filter = binding.switch1.isChecked
             )
-
-            println("query = " + binding.inputText.text.toString())
-            println("selected intro = $intro")
-            println("filter = ${binding.switch1.isChecked}")
         }
 
 
@@ -61,50 +67,25 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_menu, menu)
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.menu_about->{
+                parentFragmentManager.beginTransaction()
+                    .addToBackStack(null)
+                    .replace(R.id.MainFr,StylesInfoFragment())
+                    .commit()
+            }
+            R.id.menu_filter->{
+                Toast.makeText(context,"Он что-то делает, а что - неизвестно",Toast.LENGTH_SHORT).show()
+            }
+            R.id.menu_history->{
+
+            }
+        }
+        return true
+    }
 }
-//
-//export enum BalabobaStyles {
-//    /**
-//     * Без стиля\
-//     * Напишите что-нибудь и получите продолжение от Балабобы
-//     */
-//    Standart = 0,
-//
-//    /**
-//     * Короткие истории\
-//     * Начните писать историю,
-//     * а Балабобы продолжит — иногда страшно, но чаще смешно
-//     */
-//    ShortStories = 6,
-//
-//    /**
-//     * Википедия
-//     * Напишите какое-нибудь слово, а Балабоба даст этому определение
-//     */
-//    WikipediaSipmlified = 8,
-//
-//    /**
-//     * Синопсисы фильмов\
-//     * Напишите название фильма (существующего или нет),
-//     * а Балабоба расскажет вам, о чем он
-//     */
-//    MovieSynopses = 9,
-//
-//    /**
-//     * Народные мудрости\
-//     * Напишите что-нибудь и получите народную мудрость
-//     */
-//    FolkWisdom = 11,
-//    /**
-//     * Инструкции по применению\
-//     * Перечислите несколько предметов, а Балабоба придумает, как их использовать
-//     */
-//
-//    UserManual = 24,
-//    /**
-//     * Рецепты\
-//     * Перечислите съедобные ингредиенты, а Балабоба придумает рецепт с ними
-//     */
-//    Recipes = 25
-//}

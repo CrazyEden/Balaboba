@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
     <string-array name="spinnerItems">
-        <item> Без стиля</item>
-        <item> Инструкция по применению</item>
-        <item> Рецепты</item>
-        <item> Народные мудрости</item>
-        <item> Короткие истории</item>
-        <item> Короче, Википедия</item>
-        <item> Синопсисы фильмов</item>
+        <item> @string/first_style</item>
+        <item> @string/second_style</item>
+        <item> @string/third_style</item>
+        <item> @string/fourth_style</item>
+        <item> @string/fifth_style</item>
+        <item> @string/sixth_style</item>
+        <item> @string/seventh_style</item>
     </string-array>
 </resources>
