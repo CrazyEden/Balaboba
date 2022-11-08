@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/app_bar_switch"
-        android:title="@string/menu_dark_theme"
-        app:actionLayout="@layout/switch_item"
-        app:showAsAction="ifRoom"
-        android:orderInCategory="1"/>
-    <item
-        android:id="@+id/menu_about"
-        android:title="@string/menu_about_style_title"
+<menu
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
-        app:showAsAction="never"
-        android:orderInCategory="2"/>
     <item
-        android:id="@+id/menu_filter"
-        android:title="@string/menu_filter_title"
+        android:title="adin">
+        <menu>
+            <item
+                android:id="@+id/app_bar_switch"
+                android:title="@string/menu_dark_theme"
+                app:actionLayout="@layout/switch_item"
+                android:orderInCategory="1"/>
+            <item
+                android:id="@+id/menu_about"
+                android:title="@string/menu_about_style_title"
+                android:orderInCategory="2"/>
+            <item
+                android:id="@+id/menu_filter"
+                android:title="@string/menu_filter_title"
+                android:orderInCategory="3"/>
+            <item
+                android:id="@+id/menu_history"
+                android:title="@string/menu_database_title"
+                android:icon="@color/black"
+                android:orderInCategory="4"/>
+        </menu>
 
-        app:showAsAction="never"
-        android:orderInCategory="3"/>
-    <item
-        android:id="@+id/menu_history"
-        android:title="@string/menu_database_title"
-        android:icon="@color/black"
-        app:showAsAction="never"
-        android:orderInCategory="4"/>
+    </item>
 
 </menu>
