@@ -1,40 +1,65 @@
 package com.example.balaboba
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import com.example.balaboba.databinding.ActivityMainBinding
 import com.example.balaboba.fragments.history.HistoryFragment
+import com.example.balaboba.fragments.main.MainFragment
 import com.example.balaboba.fragments.stylesinfo.StylesInfoFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
+    private var switcher: SwitchCompat? = null
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.drawer.open()
+        switcher = binding.navigator.menu.findItem(R.id.dark_theme_switcher).actionView?.findViewById(R.id.switcher)
+
+        switcher?.setOnCheckedChangeListener { buttonView, isChecked ->
+            println("SWITCHER IS $isChecked")
+            if (isChecked){
+                //TODO() дарк тема вкл
+            }else{
+                //TODO() дарк тема выкл
+            }
+        }
+
+
         binding.navigator.setNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.menu_about->{
-
+                R.id.menu_home->{
                     supportFragmentManager.beginTransaction()
-                        .addToBackStack(null)
+                        .replace(R.id.MainFr, MainFragment())
+                        .commit()
+                }
+                R.id.menu_about_style->{
+                    supportFragmentManager.beginTransaction()
                         .replace(R.id.MainFr, StylesInfoFragment())
                         .commit()
                 }
-                R.id.menu_filter->{
+                R.id.menu_about_filter->{
                     Toast.makeText(this@MainActivity,"Он что-то делает, а что - неизвестно",Toast.LENGTH_LONG).show()
                 }
                 R.id.menu_history->{
                     supportFragmentManager.beginTransaction()
-                        .addToBackStack(null)
                         .replace(R.id.MainFr, HistoryFragment())
                         .commit()
                 }
+
+                R.id.dark_theme_switcher->{
+                    switcher?.toggle()
+                }
+
+
             }
             return@setNavigationItemSelectedListener true
         }

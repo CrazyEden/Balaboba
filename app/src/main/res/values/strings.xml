@@ -32,6 +32,8 @@
     <string name="menu_dark_theme">Темная тема</string>
     <string name="menu_filter_title">О фильтре</string>
     <string name="menu_home">Балабоба</string>
+    <string name="block_settings">Настройки</string>
+    <string name="main_block">Главное</string>
 
 
 </resources>
