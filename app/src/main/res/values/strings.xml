@@ -1,5 +1,37 @@
+
 <resources>
     <string name="app_name">Balaboba</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="first_style">  Без стиля</string>
+    <string name="second_style"> Короткие истории</string>
+    <string name="third_style"> Короче, Википедия</string>
+    <string name="fourth_style"> Синопсисы фильмов</string>
+    <string name="fifth_style"> Народные мудрости</string>
+    <string name="sixth_style"> Инструкция по применению</string>
+    <string name="seventh_style"> Рецепты</string>
+
+    <string name="first_style_info">Напишите что-нибудь и получите продолжение от Балабобы</string>
+    <string name="second_style_info">Перечислите несколько предметов, а Балабоба придумает, как их использовать</string>
+    <string name="third_style_info">Перечислите съедобные ингредиенты, а Балабоба придумает рецепт с ними</string>
+    <string name="fourth_style_info">Начните писать историю, а Балабобы продолжит — иногда страшно, но чаще смешно</string>
+    <string name="fifth_style_info">Напишите какое-нибудь слово, а Балабоба даст этому определение</string>
+    <string name="sixth_style_info">Напишите название фильма (существующего или нет), а Балабоба расскажет вам, о чем он</string>
+    <string name="seventh_style_info">Напишите что-нибудь и получите народную мудрость</string>
+
+
+
+
+    <string name="menu_about_style_title">О стилях</string>
+    <string name="menu_database_title">История</string>
+
+    <string name="input_text_is_empty">Но вы же ничего не написали</string>
+    <string name="balabob_it">Набалаболить</string>
+    <string name="main_text_output_hint">Нейросеть подражает текстам в интернете.\n Не относитесь к написанному серьёзно</string>
+    <string name="Filter">Фильтр</string>
+    <string name="main_text_input_hint">Напишите что-нибудь</string>
+    <string name="menu_dark_theme">Темная тема</string>
+    <string name="menu_filter_title">О фильтре</string>
+    <string name="menu_home">Балабоба</string>
+
+
 </resources>
