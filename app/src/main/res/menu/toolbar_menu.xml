@@ -6,26 +6,39 @@
     tools:showIn="navigation_view">
 
     <item
-        android:title="adin">
+        android:title="@string/main_block">
         <menu>
             <item
-                android:id="@+id/app_bar_switch"
-                android:title="@string/menu_dark_theme"
-                app:actionLayout="@layout/switch_item"
+                android:id="@+id/menu_home"
+                android:title="@string/menu_home"
+                android:icon="@drawable/ic_home"
                 android:orderInCategory="1"/>
             <item
-                android:id="@+id/menu_about"
+                android:id="@+id/menu_about_style"
+                android:icon="@drawable/ic_brush"
                 android:title="@string/menu_about_style_title"
                 android:orderInCategory="2"/>
             <item
-                android:id="@+id/menu_filter"
+                android:id="@+id/menu_about_filter"
+                android:icon="@drawable/ic_filter"
                 android:title="@string/menu_filter_title"
                 android:orderInCategory="3"/>
             <item
                 android:id="@+id/menu_history"
                 android:title="@string/menu_database_title"
-                android:icon="@color/black"
+                android:icon="@drawable/ic_history"
                 android:orderInCategory="4"/>
+        </menu>
+
+    </item>
+    <item
+        android:title="@string/block_settings">
+        <menu>
+            <item
+                android:id="@+id/dark_theme_switcher"
+                android:title="@string/menu_dark_theme"
+                app:actionLayout="@layout/switch_item"
+                android:orderInCategory="1"/>
         </menu>
 
     </item>

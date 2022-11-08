@@ -26,6 +26,8 @@ class MainViewModel @Inject constructor(
         )
         _liveString.postValue(res.body()?.text)
 
+
+        //TODO no internet &timeout
         rep.insertInDb(
             BalabobEntity(
                 id=0,
