@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center|top"
-    tools:context=".MainFragment">
+    tools:context=".fragments.main.MainFragment">
 
 
     <EditText

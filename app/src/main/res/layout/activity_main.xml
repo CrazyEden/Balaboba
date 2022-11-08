@@ -14,9 +14,8 @@
         android:id="@+id/MainFr"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.example.balaboba.MainFragment"
+        android:name="com.example.balaboba.fragments.main.MainFragment"
         tools:layout="@layout/fragment_main" />
-
     <com.google.android.material.navigation.NavigationView
         android:fitsSystemWindows="true"
         tools:openDrawer="start"

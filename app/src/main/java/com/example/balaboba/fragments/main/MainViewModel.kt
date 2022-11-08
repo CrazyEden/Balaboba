@@ -1,4 +1,4 @@
-package com.example.balaboba
+package com.example.balaboba.fragments.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

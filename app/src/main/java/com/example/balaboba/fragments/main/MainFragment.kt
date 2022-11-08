@@ -1,4 +1,4 @@
-package com.example.balaboba
+package com.example.balaboba.fragments.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.balaboba.R
 import com.example.balaboba.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {
     private lateinit var binding: FragmentMainBinding
-    private val vModel:MainViewModel by viewModels()
+    private val vModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,35 +58,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 filter = binding.switch1.isChecked
             )
         }
-
-
-
-
-
-
-
         return binding.root
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        inflater.inflate(R.menu.toolbar_menu, menu)
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        when(item.itemId){
-//            R.id.menu_about->{
-//                parentFragmentManager.beginTransaction()
-//                    .addToBackStack(null)
-//                    .replace(R.id.MainFr,StylesInfoFragment())
-//                    .commit()
-//            }
-//            R.id.menu_filter->{
-//                Toast.makeText(context,"Он что-то делает, а что - неизвестно",Toast.LENGTH_SHORT).show()
-//            }
-//            R.id.menu_history->{
-//
-//            }
-//        }
-//        return true
-//    }
+
 }
