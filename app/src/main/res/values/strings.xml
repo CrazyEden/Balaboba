@@ -31,6 +31,7 @@
     <string name="main_text_input_hint">Напишите что-нибудь</string>
     <string name="menu_dark_theme">Темная тема</string>
     <string name="menu_filter_title">О фильтре</string>
+    <string name="menu_home">Балабоба</string>
 
 
 </resources>
