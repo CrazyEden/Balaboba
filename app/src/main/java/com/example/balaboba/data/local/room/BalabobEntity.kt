@@ -5,9 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "balabobstable")
 data class BalabobEntity(
-    @PrimaryKey(autoGenerate = true) val id:Long,
+    @PrimaryKey(autoGenerate = true) val id:Long = 0,
     val query:String,
     val response:String,
     val filter:Boolean,
-    val style:Int
+    val style:String
 )

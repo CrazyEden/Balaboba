@@ -17,25 +17,34 @@ class MainViewModel @Inject constructor(
 ) :ViewModel() {
     private var _liveString = MutableLiveData<String?>()
     var liveString = _liveString
+
     fun load(query:String, intro:Int, filter:Boolean) = viewModelScope.launch(Dispatchers.IO){
 
-         val res = rep.load(BalabobaRequest(
+        runCatching{
+            val res = rep.load(BalabobaRequest(
                 query = query,
                 intro = intro,
-                filter = filter)
-        )
-        _liveString.postValue(res.body()?.text)
+                filter = filter))
+            _liveString.postValue(res.body()?.text)
+            rep.insertInDb(BalabobEntity(
+                query = query,
+                response = res.body()?.text!!,
+                filter = filter,
+                style = intro.toStyle()))
+        }.getOrDefault(_liveString.postValue(null))
 
+    }
+}
 
-        //TODO no internet &timeout
-        rep.insertInDb(
-            BalabobEntity(
-                id=0,
-                query=query,
-                response =res.body()?.text.toString() ,
-                filter=filter,
-                style = intro
-            ))
-
+private fun Int.toStyle(): String {
+    return when(this){
+        0 -> "Без стиля"
+        6 -> "Короткие истории"
+        8 -> "Короче, Википедия"
+        9 -> "Синопсисы фильмов"
+        11 -> "Народные мудрости"
+        24 -> "Инструкция по применению"
+        25 -> "Рецепты"
+        else -> {"одна ошибка и ты ошибся"}
     }
 }

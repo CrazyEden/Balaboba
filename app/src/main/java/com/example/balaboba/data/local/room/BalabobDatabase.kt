@@ -12,5 +12,8 @@ interface BalabobDatabase {
     suspend fun insertBalabob(balabob:BalabobEntity)
 
     @Query("SELECT * from balabobstable ")
-    suspend fun getAllBalabobs():MutableList<Balabob>
+    suspend fun getAllBalabobs():MutableList<Balabob>?
+
+    @Query("SELECT `query`,response,style from balabobstable")
+    suspend fun getAllMinidata():MutableList<HistoryFragmentTuple>?
 }

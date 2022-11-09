@@ -1,5 +1,7 @@
 package com.example.balaboba.fragments.main
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {
     private lateinit var binding: FragmentMainBinding
     private val vModel: MainViewModel by viewModels()
-
+    private lateinit var settings:SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -25,15 +27,18 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         savedInstanceState: Bundle?
     ): View {
         binding=FragmentMainBinding.inflate(inflater,container,false)
+        settings= context?.getSharedPreferences(SHAREDPREFERENCESNAME,Context.MODE_PRIVATE)!!
 
+        binding.spinner.setSelection(settings.getInt(SPINNERKEY, 0))
+        binding.filter.isChecked = settings.getBoolean(FILTERKEY,false)
 
         vModel.liveString.observe(viewLifecycleOwner){
-            if(it.isNullOrEmpty()) return@observe
-            println(it)
-            binding.txt.text = it
             binding.progressBar.visibility = View.INVISIBLE
             binding.txt.visibility = View.VISIBLE
             binding.button.isClickable = true
+            if(it.isNullOrEmpty()) return@observe
+            println(it)
+            binding.txt.text = it
         }
         binding.button.setOnClickListener {
             if(binding.inputText.text.isNullOrEmpty()) {
@@ -55,11 +60,25 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             vModel.load(
                 query = binding.inputText.text.toString(),
                 intro = intro,
-                filter = binding.switch1.isChecked
+                filter = binding.filter.isChecked
             )
         }
         return binding.root
     }
 
+    override fun onStop() {
+        settings.edit()
+            .putBoolean(FILTERKEY,binding.filter.isChecked)
+            .putInt(SPINNERKEY, binding.spinner.selectedItemPosition)
+            .apply()
+        super.onStop()
+    }
+    companion object{
+        val SHAREDPREFERENCESNAME = "SETTINGS"
+        val SPINNERKEY = "SPINNER"
+        val FILTERKEY = "FILTER"
+//        val SHAREDPREFERENCESNAME = "SETTINGS"
+//        val SHAREDPREFERENCESNAME = "SETTINGS"
+    }
 
 }

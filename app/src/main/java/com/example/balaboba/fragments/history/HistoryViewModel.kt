@@ -3,7 +3,7 @@ package com.example.balaboba.fragments.history
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.balaboba.data.model.Balabob
+import com.example.balaboba.data.local.room.HistoryFragmentTuple
 import com.example.balaboba.di.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -14,9 +14,10 @@ import javax.inject.Inject
 class HistoryViewModel @Inject constructor(
     private val rep: Repository
 ):ViewModel() {
-    val b =  MutableLiveData<List<Balabob>>()
+    private val _listOfBalabobs =  MutableLiveData<List<HistoryFragmentTuple>?>()
+    val listOfBalabobs = _listOfBalabobs
 
     fun load() = viewModelScope.launch(Dispatchers.IO) {
-        b.postValue(rep.getAllSavedData())
+        _listOfBalabobs.postValue(rep.getAllSavedForHistoryFragment())
     }
 }

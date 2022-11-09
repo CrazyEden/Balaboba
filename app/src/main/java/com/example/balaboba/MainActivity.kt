@@ -1,6 +1,5 @@
 package com.example.balaboba
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,20 +15,25 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var switcher: SwitchCompat? = null
-    @SuppressLint("ClickableViewAccessibility")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.drawer.open()
         switcher = binding.navigator.menu.findItem(R.id.dark_theme_switcher).actionView?.findViewById(R.id.switcher)
 
         switcher?.setOnCheckedChangeListener { buttonView, isChecked ->
             println("SWITCHER IS $isChecked")
             if (isChecked){
-                //TODO() дарк тема вкл
+                setTheme(R.style.Theme_BalabobaDark)
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.MainFr, MainFragment())
+                    .commit()
             }else{
-                //TODO() дарк тема выкл
+                setTheme(R.style.Theme_Balaboba)
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.MainFr, MainFragment())
+                    .commit()
             }
         }
 
@@ -58,11 +62,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.dark_theme_switcher->{
                     switcher?.toggle()
                 }
-
-
             }
             return@setNavigationItemSelectedListener true
         }
     }
+
 
 }

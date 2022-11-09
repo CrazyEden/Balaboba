@@ -3,14 +3,14 @@ package com.example.balaboba.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.balaboba.data.model.Balabob
+import com.example.balaboba.data.local.room.HistoryFragmentTuple
 import com.example.balaboba.databinding.ItemOneBalabobaBinding
 
 class HistoryAdapter:RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
     class  HistoryViewHolder(val binding: ItemOneBalabobaBinding):RecyclerView.ViewHolder(binding.root)
-    var history = listOf<Balabob>()
+    var history = listOf<HistoryFragmentTuple>()
 
-    fun setData(list: List<Balabob>){
+    fun setData(list: List<HistoryFragmentTuple>){
         history = list
         notifyDataSetChanged()
     }
@@ -24,7 +24,7 @@ class HistoryAdapter:RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
         with(holder.binding){
             textInput.text = history[position].query
             textRespone.text = history[position].response
-            textStyle.text = history[position].style.toString()
+            textStyle.text = history[position].style
 
         }
     }
