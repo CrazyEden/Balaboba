@@ -42,5 +42,19 @@
         </menu>
 
     </item>
+    <item
+        android:title="isto4niki">
+        <menu>
+            <item
+                android:id="@+id/site"
+                android:title="@string/open_sine"
+                android:orderInCategory="1"/>
+            <item
+                android:id="@+id/about_balaboba"
+                android:title="@string/about_balaboba"
+                android:orderInCategory="2"/>
+        </menu>
+
+    </item>
 
 </menu>
