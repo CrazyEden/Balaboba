@@ -12,7 +12,7 @@ import com.example.balaboba.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainFragment : Fragment(R.layout.fragment_main) {
+class MainFragment: Fragment(R.layout.fragment_main) {
     private lateinit var binding: FragmentMainBinding
     private val vModel: MainViewModel by viewModels()
 
@@ -26,14 +26,19 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     ): View {
         binding=FragmentMainBinding.inflate(inflater,container,false)
 
+        binding.spinner.setSelection(vModel.getSpinnerState())
+        binding.filter.isChecked = vModel.getFilterState()
 
         vModel.liveString.observe(viewLifecycleOwner){
-            if(it.isNullOrEmpty()) return@observe
-            println(it)
-            binding.txt.text = it
             binding.progressBar.visibility = View.INVISIBLE
             binding.txt.visibility = View.VISIBLE
             binding.button.isClickable = true
+            if(it.isNullOrEmpty()){
+                Toast.makeText(context,getString(R.string.observe_error),Toast.LENGTH_SHORT).show()
+                return@observe
+            }
+            println(it)
+            binding.txt.text = it
         }
         binding.button.setOnClickListener {
             if(binding.inputText.text.isNullOrEmpty()) {
@@ -55,10 +60,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             vModel.load(
                 query = binding.inputText.text.toString(),
                 intro = intro,
-                filter = binding.switch1.isChecked
+                filter = binding.filter.isChecked
             )
         }
         return binding.root
+    }
+
+    override fun onStop() {
+        vModel.saveSpinnerAndFilterState(binding.filter.isChecked,binding.spinner.selectedItemPosition)
+        super.onStop()
     }
 
 

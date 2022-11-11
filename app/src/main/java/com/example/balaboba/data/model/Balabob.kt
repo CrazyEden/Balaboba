@@ -4,5 +4,5 @@ data class Balabob(
     val query:String,
     val response:String,
     val filter:Boolean,
-    val style:Int
+    val style:String
 )

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+
     android:orientation="vertical"
     tools:context=".fragments.main.MainFragment">
 
@@ -12,8 +12,7 @@
         android:id="@+id/inputText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:background="@null"
+        android:layout_marginTop="50dp"
         android:gravity="center"
         android:hint="@string/main_text_input_hint"
         android:importantForAutofill="no"
@@ -30,15 +29,15 @@
         android:padding="10dp">
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switch1"
+            android:id="@+id/filter"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:text="@string/Filter" />
 
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:entries="@array/spinnerItems"
             android:minHeight="48dp"/>
@@ -46,7 +45,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="350dp"
         android:scrollbarAlwaysDrawVerticalTrack="true">
 
         <ScrollView
@@ -59,14 +58,12 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:gravity="center"
-            android:layout_marginTop="20dp"
             android:hint="@string/main_text_output_hint"
             android:layout_gravity="center"/>
         </ScrollView>
 
         <ProgressBar
             android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="invisible"
@@ -74,10 +71,14 @@
             tools:visibility="visible" />
     </FrameLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
+
+        android:padding="10dp"
+        android:textColor="@color/black"
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:foregroundGravity="bottom"
-        android:text="@string/balabob_it" />
+        android:text="@string/balabob_it"
+        android:background="@drawable/main_button_background"/>
 </LinearLayout>

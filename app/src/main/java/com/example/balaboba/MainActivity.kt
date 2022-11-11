@@ -1,9 +1,10 @@
 package com.example.balaboba
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import com.example.balaboba.databinding.ActivityMainBinding
 import com.example.balaboba.fragments.history.HistoryFragment
@@ -15,21 +16,28 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private var switcher: SwitchCompat? = null
-    @SuppressLint("ClickableViewAccessibility")
+    private lateinit var switcher: SwitchCompat
+    private val vModel:ActivityViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.drawer.open()
-        switcher = binding.navigator.menu.findItem(R.id.dark_theme_switcher).actionView?.findViewById(R.id.switcher)
 
-        switcher?.setOnCheckedChangeListener { buttonView, isChecked ->
+
+        switcher = binding.navigator.menu.findItem(R.id.dark_theme_switcher).actionView?.findViewById(R.id.switcher)!!
+
+        AppCompatDelegate.setDefaultNightMode(vModel.getThemeMode())
+        if (vModel.getThemeMode()==2) switcher.isChecked = true
+
+
+
+        switcher.setOnCheckedChangeListener { buttonView, isChecked ->
             println("SWITCHER IS $isChecked")
             if (isChecked){
-                //TODO() дарк тема вкл
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }else{
-                //TODO() дарк тема выкл
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
 
@@ -40,29 +48,36 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.MainFr, MainFragment())
                         .commit()
+                    binding.drawer.close()
                 }
                 R.id.menu_about_style->{
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.MainFr, StylesInfoFragment())
                         .commit()
+                    binding.drawer.close()
                 }
                 R.id.menu_about_filter->{
                     Toast.makeText(this@MainActivity,"Он что-то делает, а что - неизвестно",Toast.LENGTH_LONG).show()
+                    binding.drawer.close()
                 }
                 R.id.menu_history->{
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.MainFr, HistoryFragment())
                         .commit()
+                    binding.drawer.close()
                 }
 
                 R.id.dark_theme_switcher->{
-                    switcher?.toggle()
+                    switcher.toggle()
                 }
-
-
             }
             return@setNavigationItemSelectedListener true
         }
+    }
+
+    override fun onStop() {
+        vModel.saveThemeMode(switcher.isChecked)
+        super.onStop()
     }
 
 }
