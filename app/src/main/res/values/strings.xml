@@ -40,6 +40,10 @@
     <string name="main_block">Главное</string>
     <string name="observe_error">На линии помехи, Балабоба не может связаться с сервером</string>
     <string name="error_db_is_empty">Вы еще не общались с Балабобой</string>
+    <string name="about_balaboba">Как работает Балабоба</string>
+    <string name="open_sine">Открыть сайт</string>
+    <string name="about_filter">Он что-то делает, а что - неизвестно</string>
+    <string name="Links">Links</string>
 
 
 </resources>

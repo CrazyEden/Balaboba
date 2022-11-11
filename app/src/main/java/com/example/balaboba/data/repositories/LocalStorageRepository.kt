@@ -11,7 +11,7 @@ class LocalStorageRepository @Inject constructor(
     private val db:AppDatabase,
     private val sharedPreferences: SharedPreferences
 ) {
-    //suspend fun getAllSavedData():List<Balabob>? = db.getDao().getAllBalabobs()
+
     suspend fun getAllSavedForHistoryFragment():List<HistoryFragmentTuple>? = db.getDao().getAllMinidata()
 
     suspend fun insertInDb(balabobEntity: BalabobEntity){
@@ -32,7 +32,7 @@ class LocalStorageRepository @Inject constructor(
             .putBoolean(CONSTS.FILTER_KEY,isFilterActive)
             .apply()
 
-    fun getFilterState() = sharedPreferences.getBoolean(CONSTS.FILTER_KEY,false)
+    fun getFilterState():Boolean = sharedPreferences.getBoolean(CONSTS.FILTER_KEY,false)
 
     fun saveThemeMode(stateNightMode:Int)=
         sharedPreferences
@@ -40,7 +40,7 @@ class LocalStorageRepository @Inject constructor(
             .putInt(CONSTS.THEME_KEY,stateNightMode)
             .apply()
 
-    fun getThemeMode()=
+    fun getThemeMode():Int=
         sharedPreferences.getInt(CONSTS.THEME_KEY,1)
 
 }

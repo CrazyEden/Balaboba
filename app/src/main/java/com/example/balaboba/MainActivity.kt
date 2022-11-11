@@ -1,5 +1,7 @@
 package com.example.balaboba
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -24,27 +26,23 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        switcher = binding.navigator.menu.findItem(R.id.dark_theme_switcher).actionView?.findViewById(R.id.switcher)!!
+        switcher = binding.navigator.menu.findItem(R.id.dark_theme_switcher)
+            .actionView?.findViewById(R.id.switcher)!!
 
         AppCompatDelegate.setDefaultNightMode(vModel.getThemeMode())
         if (vModel.getThemeMode()==2) switcher.isChecked = true
 
-
-
-        switcher.setOnCheckedChangeListener { buttonView, isChecked ->
-            println("SWITCHER IS $isChecked")
-            if (isChecked){
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }else{
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
+        switcher.setOnCheckedChangeListener { _, isChecked ->
+            AppCompatDelegate.setDefaultNightMode(
+                if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
+                    else AppCompatDelegate.MODE_NIGHT_NO)
         }
 
 
         binding.navigator.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.menu_home->{
+                    println("HOME GAPEE")
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.MainFr, MainFragment())
                         .commit()
@@ -57,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                     binding.drawer.close()
                 }
                 R.id.menu_about_filter->{
-                    Toast.makeText(this@MainActivity,"Он что-то делает, а что - неизвестно",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@MainActivity,getString(R.string.about_filter),Toast.LENGTH_LONG).show()
                     binding.drawer.close()
                 }
                 R.id.menu_history->{
@@ -66,9 +64,14 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                     binding.drawer.close()
                 }
-
                 R.id.dark_theme_switcher->{
                     switcher.toggle()
+                }
+                R.id.site->{
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://yandex.ru/lab/yalm")))
+                }
+                R.id.about_balaboba->{
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://yandex.ru/lab/yalm-howto")))
                 }
             }
             return@setNavigationItemSelectedListener true

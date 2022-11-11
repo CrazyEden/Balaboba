@@ -10,8 +10,7 @@ class ActivityViewModel @Inject constructor(
     private val localStorageRepository: LocalStorageRepository
 ) :ViewModel() {
     fun getThemeMode() = localStorageRepository.getThemeMode()
-    fun saveThemeMode(isChecked:Boolean){
-        if (isChecked) localStorageRepository.saveThemeMode(2)
-        else localStorageRepository.saveThemeMode(1)
-    }
+    fun saveThemeMode(isChecked:Boolean) =
+        localStorageRepository.saveThemeMode(if (isChecked) 2 else 1)
+
 }
