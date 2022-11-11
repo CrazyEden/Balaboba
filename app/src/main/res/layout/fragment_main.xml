@@ -4,19 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@color/main_back"
+
     android:orientation="vertical"
     tools:context=".fragments.main.MainFragment">
 
     <EditText
-
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
         android:id="@+id/inputText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:background="@color/main_back"
         android:gravity="center"
         android:hint="@string/main_text_input_hint"
         android:importantForAutofill="no"
@@ -35,13 +31,13 @@
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/filter"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:text="@string/Filter" />
 
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:entries="@array/spinnerItems"
             android:minHeight="48dp"/>
@@ -57,8 +53,6 @@
             android:layout_height="match_parent"
             android:padding="10dp">
         <TextView
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
             android:id="@+id/txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,11 +71,14 @@
             tools:visibility="visible" />
     </FrameLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
+
+        android:padding="10dp"
+        android:textColor="@color/black"
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:foregroundGravity="bottom"
         android:text="@string/balabob_it"
-        android:textColor="@color/black" />
+        android:background="@drawable/main_button_background"/>
 </LinearLayout>

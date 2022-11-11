@@ -9,7 +9,7 @@ import com.example.balaboba.databinding.ItemStyleBinding
 class StyleInfoAdapter : RecyclerView.Adapter<StyleInfoAdapter.StyleInfoViewHolder>() {
     class StyleInfoViewHolder(val binding:ItemStyleBinding) :RecyclerView.ViewHolder(binding.root)
 
-    var list = listOf<Style>()
+    private var list = listOf<Style>()
 
     fun setData(list:List<Style>){
         this.list=list

@@ -12,7 +12,7 @@ import com.example.balaboba.data.model.Style
 import com.example.balaboba.databinding.FragmentStylesInfoBinding
 
 class StylesInfoFragment : Fragment(R.layout.fragment_styles_info) {
-lateinit var binding: FragmentStylesInfoBinding
+private lateinit var binding: FragmentStylesInfoBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +31,7 @@ lateinit var binding: FragmentStylesInfoBinding
             Style(getString(R.string.second_style),getString(R.string.second_style_info)),
             Style(getString(R.string.third_style),getString(R.string.third_style_info)),
             Style(getString(R.string.fourth_style),getString(R.string.fourth_style_info)),
-            Style(getString(R.string.fifth_style),getString(R.string.first_style_info)),
+            Style(getString(R.string.fifth_style),getString(R.string.fifth_style_info)),
             Style(getString(R.string.sixth_style),getString(R.string.sixth_style_info)),
             Style(getString(R.string.seventh_style),getString(R.string.seventh_style_info))
         )

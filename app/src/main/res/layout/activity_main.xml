@@ -19,7 +19,6 @@
         tools:layout="@layout/fragment_main" />
 
     <com.google.android.material.navigation.NavigationView
-        android:background="@color/material_dynamic_neutral50"
         android:fitsSystemWindows="true"
         tools:openDrawer="start"
         app:headerLayout="@layout/menu_header"

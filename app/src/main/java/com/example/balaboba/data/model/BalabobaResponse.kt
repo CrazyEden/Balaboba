@@ -1,6 +1,6 @@
-package com.example.balaboba.data.network.model
+package com.example.balaboba.data.model
 
-data class BalabobaRespone (
+data class BalabobaResponse (
     var badQuery: Int?,
     var query: String?,
     var text: String?,

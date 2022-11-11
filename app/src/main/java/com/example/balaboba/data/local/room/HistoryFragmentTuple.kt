@@ -4,5 +4,4 @@ data class HistoryFragmentTuple(
     val query:String,
     val response:String,
     val style:String
-){
-}
+)

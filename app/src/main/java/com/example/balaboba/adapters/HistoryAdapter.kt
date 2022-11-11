@@ -25,7 +25,6 @@ class HistoryAdapter:RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
             textInput.text = history[position].query
             textRespone.text = history[position].response
             textStyle.text = history[position].style
-
         }
     }
 

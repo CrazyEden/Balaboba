@@ -1,4 +1,4 @@
-package com.example.balaboba.data.network.model
+package com.example.balaboba.data.model
 
 data class BalabobaRequest(
     var query:String,

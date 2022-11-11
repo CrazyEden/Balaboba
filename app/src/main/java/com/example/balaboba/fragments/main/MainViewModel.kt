@@ -4,8 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.balaboba.data.local.room.BalabobEntity
-import com.example.balaboba.data.network.model.BalabobaRequest
-import com.example.balaboba.di.Repository
+import com.example.balaboba.data.model.BalabobaRequest
+import com.example.balaboba.data.repositories.LocalStorageRepository
+import com.example.balaboba.data.repositories.NetworkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val rep:Repository
+    private val network: NetworkRepository,
+    private val database: LocalStorageRepository
 ) :ViewModel() {
     private var _liveString = MutableLiveData<String?>()
     var liveString = _liveString
@@ -21,18 +23,30 @@ class MainViewModel @Inject constructor(
     fun load(query:String, intro:Int, filter:Boolean) = viewModelScope.launch(Dispatchers.IO){
 
         runCatching{
-            val res = rep.load(BalabobaRequest(
+            val res = network.load(
+                BalabobaRequest(
                 query = query,
                 intro = intro,
-                filter = filter))
+                filter = filter)
+            )
             _liveString.postValue(res.body()?.text)
-            rep.insertInDb(BalabobEntity(
+            database.insertInDb(BalabobEntity(
                 query = query,
                 response = res.body()?.text!!,
                 filter = filter,
                 style = intro.toStyle()))
-        }.getOrDefault(_liveString.postValue(null))
+        }.getOrElse {
+            _liveString.postValue(null)
+        }
 
+    }
+
+    fun getSpinnerState() = database.getSpinnerState()
+
+    fun getFilterState() = database.getFilterState()
+    fun saveSpinnerAndFilterState(filterState:Boolean,spinnerState:Int){
+        database.saveFilterState(filterState)
+        database.saveSpinnerState(spinnerState)
     }
 }
 
