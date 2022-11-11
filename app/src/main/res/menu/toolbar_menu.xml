@@ -43,7 +43,7 @@
 
     </item>
     <item
-        android:title="isto4niki">
+        android:title="@string/Links">
         <menu>
             <item
                 android:id="@+id/site"
