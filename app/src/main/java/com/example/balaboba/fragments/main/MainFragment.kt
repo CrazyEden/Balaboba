@@ -37,32 +37,9 @@ class MainFragment: Fragment(R.layout.fragment_main) {
                 Toast.makeText(context,getString(R.string.observe_error),Toast.LENGTH_SHORT).show()
                 return@observe
             }
-            println(it)
             binding.txt.text = it
         }
-        binding.button.setOnClickListener {
-            if(binding.inputText.text.isNullOrEmpty()) {
-                Toast.makeText(context,getString(R.string.input_text_is_empty), Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            binding.progressBar.visibility = View.VISIBLE
-            binding.txt.visibility = View.INVISIBLE
-            binding.button.isClickable = false
-            var intro = 0 //по умолчанию без стиля
-            when(binding.spinner.selectedItemPosition){
-                1 -> intro = 6
-                2 -> intro = 8
-                3 -> intro = 9
-                4 -> intro = 11
-                5 -> intro = 24
-                6 -> intro = 25
-            }
-            vModel.load(
-                query = binding.inputText.text.toString(),
-                intro = intro,
-                filter = binding.filter.isChecked
-            )
-        }
+        binding.button.setOnClickListener { balabobIt() }
         return binding.root
     }
 
@@ -71,5 +48,28 @@ class MainFragment: Fragment(R.layout.fragment_main) {
         super.onStop()
     }
 
+    private fun balabobIt(){
+        if(binding.inputText.text.isNullOrEmpty()) {
+            Toast.makeText(context,getString(R.string.input_text_is_empty), Toast.LENGTH_SHORT).show()
+            return
+        }
+        binding.progressBar.visibility = View.VISIBLE
+        binding.txt.visibility = View.INVISIBLE
+        binding.button.isClickable = false
+        var intro = 0 //по умолчанию без стиля
+        when(binding.spinner.selectedItemPosition){
+            1 -> intro = 6
+            2 -> intro = 8
+            3 -> intro = 9
+            4 -> intro = 11
+            5 -> intro = 24
+            6 -> intro = 25
+        }
+        vModel.load(
+            query = binding.inputText.text.toString(),
+            intro = intro,
+            filter = binding.filter.isChecked
+        )
+    }
 
 }

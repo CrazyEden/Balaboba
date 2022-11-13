@@ -27,8 +27,7 @@ class MainViewModel @Inject constructor(
                 BalabobaRequest(
                 query = query,
                 intro = intro,
-                filter = filter)
-            )
+                filter = filter))
             _liveString.postValue(res.body()?.text)
             database.insertInDb(BalabobEntity(
                 query = query,
@@ -59,6 +58,6 @@ private fun Int.toStyle(): String {
         11 -> "Народные мудрости"
         24 -> "Инструкция по применению"
         25 -> "Рецепты"
-        else -> {"одна ошибка и ты ошибся"}
+        else -> throw IllegalArgumentException("unknown id")
     }
 }

@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         binding.navigator.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.menu_home->{
-                    println("HOME GAPEE")
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.MainFr, MainFragment())
                         .commit()
