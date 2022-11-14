@@ -19,60 +19,62 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var switcher: SwitchCompat
-    private val vModel:ActivityViewModel by viewModels()
+    private val vModel: ActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        switcher = binding.navigator.menu.findItem(R.id.dark_theme_switcher)
-            .actionView?.findViewById(R.id.switcher)!!
+        switcher =
+            binding.navigator.menu.findItem(R.id.dark_theme_switcher).actionView?.findViewById(R.id.switcher)!!
 
         AppCompatDelegate.setDefaultNightMode(vModel.getThemeMode())
-        if (vModel.getThemeMode()==2) switcher.isChecked = true
+        if (vModel.getThemeMode() == 2) switcher.isChecked = true
 
         switcher.setOnCheckedChangeListener { _, isChecked ->
             AppCompatDelegate.setDefaultNightMode(
                 if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
-                    else AppCompatDelegate.MODE_NIGHT_NO)
+                else AppCompatDelegate.MODE_NIGHT_NO
+            )
         }
 
 
         binding.navigator.setNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.menu_home->{
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.MainFr, MainFragment())
+            when (it.itemId) {
+                R.id.menu_home -> {
+                    supportFragmentManager.beginTransaction().replace(R.id.MainFr, MainFragment())
                         .commit()
                     binding.drawer.close()
                 }
-                R.id.menu_about_style->{
+                R.id.menu_about_style -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.MainFr, StylesInfoFragment())
-                        .commit()
+                        .replace(R.id.MainFr, StylesInfoFragment()).commit()
                     binding.drawer.close()
                 }
-                R.id.menu_about_filter->{
-                    Toast.makeText(this@MainActivity,getString(R.string.about_filter),Toast.LENGTH_LONG).show()
+                R.id.menu_about_filter -> {
+                    Toast.makeText(
+                        this@MainActivity, getString(R.string.about_filter), Toast.LENGTH_LONG
+                    ).show()
 
                 }
-                R.id.menu_history->{
+                R.id.menu_history -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.MainFr, HistoryFragment())
-                        .commit()
+                        .replace(R.id.MainFr, HistoryFragment()).commit()
                     binding.drawer.close()
                 }
-                R.id.dark_theme_switcher->{
+                R.id.dark_theme_switcher -> {
                     switcher.toggle()
                 }
-                R.id.site->{
+                R.id.site -> {
                     startActivity(
-                        Intent(Intent.ACTION_VIEW, Uri.parse("https://yandex.ru/lab/yalm")))
+                        Intent(Intent.ACTION_VIEW, Uri.parse("https://yandex.ru/lab/yalm"))
+                    )
                 }
-                R.id.about_balaboba->{
+                R.id.about_balaboba -> {
                     startActivity(
-                        Intent(Intent.ACTION_VIEW, Uri.parse("https://yandex.ru/lab/yalm-howto")))
+                        Intent(Intent.ACTION_VIEW, Uri.parse("https://yandex.ru/lab/yalm-howto"))
+                    )
                 }
             }
             return@setNavigationItemSelectedListener true

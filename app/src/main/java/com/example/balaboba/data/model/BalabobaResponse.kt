@@ -1,9 +1,12 @@
 package com.example.balaboba.data.model
 
-data class BalabobaResponse (
-    var badQuery: Int?,
+import com.google.gson.annotations.SerializedName
+
+data class BalabobaResponse(
+    @SerializedName("bad_query")
+    var badQuery: Int,
     var query: String?,
-    var text: String?,
+    var text: String,
     var error: Int?,
     var isCached: Int?,
     var intro: Int?,
