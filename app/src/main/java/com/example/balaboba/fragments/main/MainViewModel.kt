@@ -10,6 +10,8 @@ import com.example.balaboba.data.repositories.NetworkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,27 +19,46 @@ class MainViewModel @Inject constructor(
     private val network: NetworkRepository,
     private val database: LocalStorageRepository
 ) :ViewModel() {
-    private var _liveString = MutableLiveData<String?>()
+    private var _liveString = MutableLiveData<String>()
     var liveString = _liveString
+
+    private var _errorStr = MutableLiveData<String>()
+    var errorStr = _errorStr
 
     fun load(query:String, intro:Int, filter:Boolean) = viewModelScope.launch(Dispatchers.IO){
 
-        runCatching{
-            val res = network.load(
-                BalabobaRequest(
+        runCatching {
+            val res = network.load(BalabobaRequest(
                 query = query,
                 intro = intro,
-                filter = filter)
-            )
+                filter = filter))
+            if (res.body()?.badQuery == 1) throw BadQueryException()
+            if (res.isSuccessful && res.body()?.text.isNullOrEmpty()) throw YandexException()
+
             _liveString.postValue(res.body()?.text)
             database.insertInDb(BalabobEntity(
                 query = query,
                 response = res.body()?.text!!,
                 filter = filter,
-                style = intro.toStyle()))
+                style = intro.toStyle())
+            )
+
         }.getOrElse {
-            _liveString.postValue(null)
+            when(it){
+                is SocketTimeoutException ->_errorStr.postValue("TIMEOUT")
+                is UnknownHostException ->  _errorStr.postValue("NO_INTERNET")
+                is YandexException ->       _errorStr.postValue("YANDEX_MOMENT")
+                is BadQueryException ->     _errorStr.postValue("NO_POLITIC")
+                else->                      _errorStr.postValue(it.toString())
+            }
         }
+
+
+
+
+
+
+
 
     }
 
@@ -50,6 +71,9 @@ class MainViewModel @Inject constructor(
     }
 }
 
+class BadQueryException: Exception()
+class YandexException: Exception()
+
 private fun Int.toStyle(): String {
     return when(this){
         0 -> "Без стиля"
@@ -59,6 +83,6 @@ private fun Int.toStyle(): String {
         11 -> "Народные мудрости"
         24 -> "Инструкция по применению"
         25 -> "Рецепты"
-        else -> {"одна ошибка и ты ошибся"}
+        else -> throw IllegalArgumentException("unknown id")
     }
 }
