@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitInstance {
     private val retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://yandex.ru/lab/api/")
+            .baseUrl("https://zeapi.yandex.net/lab/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
@@ -20,7 +20,9 @@ object RetrofitInstance {
         retrofit.create(ApiInterface::class.java)
     }
     private val client = OkHttpClient.Builder()
-        .readTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
+        .readTimeout(60, java.util.concurrent.TimeUnit.SECONDS)
+        .connectTimeout(60, java.util.concurrent.TimeUnit.SECONDS)
+        .writeTimeout(60, java.util.concurrent.TimeUnit.SECONDS)
         .build()
 
 }

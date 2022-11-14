@@ -28,7 +28,12 @@ class MainFragment: Fragment(R.layout.fragment_main) {
 
         binding.spinner.setSelection(vModel.getSpinnerState())
         binding.filter.isChecked = vModel.getFilterState()
-
+        binding.scroller.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if (scrollY > 0 )
+                binding.button.hide();
+            if (scrollY == 0)
+                binding.button.show()
+        }
         vModel.liveString.observe(viewLifecycleOwner){
             binding.progressBar.visibility = View.INVISIBLE
             binding.txt.visibility = View.VISIBLE
@@ -55,7 +60,7 @@ class MainFragment: Fragment(R.layout.fragment_main) {
         }
         binding.progressBar.visibility = View.VISIBLE
         binding.txt.visibility = View.INVISIBLE
-        binding.button.isClickable = false
+//        binding.button.isClickable = false
         var intro = 0 //по умолчанию без стиля
         when(binding.spinner.selectedItemPosition){
             1 -> intro = 6

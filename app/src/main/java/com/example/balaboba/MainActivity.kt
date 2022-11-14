@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.menu_about_filter->{
                     Toast.makeText(this@MainActivity,getString(R.string.about_filter),Toast.LENGTH_LONG).show()
-                    binding.drawer.close()
+
                 }
                 R.id.menu_history->{
                     supportFragmentManager.beginTransaction()
@@ -67,10 +67,12 @@ class MainActivity : AppCompatActivity() {
                     switcher.toggle()
                 }
                 R.id.site->{
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://yandex.ru/lab/yalm")))
+                    startActivity(
+                        Intent(Intent.ACTION_VIEW, Uri.parse("https://yandex.ru/lab/yalm")))
                 }
                 R.id.about_balaboba->{
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://yandex.ru/lab/yalm-howto")))
+                    startActivity(
+                        Intent(Intent.ACTION_VIEW, Uri.parse("https://yandex.ru/lab/yalm-howto")))
                 }
             }
             return@setNavigationItemSelectedListener true

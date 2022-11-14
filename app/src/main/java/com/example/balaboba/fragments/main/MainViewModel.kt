@@ -22,20 +22,29 @@ class MainViewModel @Inject constructor(
 
     fun load(query:String, intro:Int, filter:Boolean) = viewModelScope.launch(Dispatchers.IO){
 
-        runCatching{
+        try {
             val res = network.load(
                 BalabobaRequest(
-                query = query,
-                intro = intro,
-                filter = filter))
-            _liveString.postValue(res.body()?.text)
-            database.insertInDb(BalabobEntity(
-                query = query,
-                response = res.body()?.text!!,
-                filter = filter,
-                style = intro.toStyle()))
-        }.getOrElse {
+                    query = query,
+                    intro = intro,
+                    filter = filter))
+            if (res.isSuccessful && !res.body()?.text.isNullOrEmpty()) {
+                _liveString.postValue(res.body()?.text)
+                database.insertInDb(
+                    BalabobEntity(
+                        query = query,
+                        response = res.body()?.text!!,
+                        filter = filter,
+                        style = intro.toStyle()))
+            }else println("NUUUUUUUUUL")
+            println(res.isSuccessful)
+            println("CODE = ${res.code()}")
+            println("ERR BODY = ${res.errorBody()}")
+            println("BODY = ${res.body()}")
+        }catch (e:Throwable){
+            println(e)
             _liveString.postValue(null)
+
         }
 
     }
