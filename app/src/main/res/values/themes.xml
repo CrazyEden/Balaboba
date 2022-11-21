@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.Balaboba" parent="Theme.AppCompat.Light">
+    <style name="Theme.Balaboba" parent="Theme.MaterialComponents.Light">
         <!-- Primary brand color. -->
 
         <!-- Status bar color. -->
