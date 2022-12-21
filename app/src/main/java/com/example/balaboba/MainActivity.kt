@@ -12,17 +12,24 @@ import com.example.balaboba.databinding.ActivityMainBinding
 import com.example.balaboba.fragments.history.HistoryFragment
 import com.example.balaboba.fragments.main.MainFragment
 import com.example.balaboba.fragments.stylesinfo.StylesInfoFragment
-import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var switcher: SwitchCompat
-    private val vModel: ActivityViewModel by viewModels()
+
+    @Inject lateinit var factory : ActivityViewModel.Factory
+    private val vModel: ActivityViewModel by viewModels { factory }
+
+
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        appComponent.inject(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

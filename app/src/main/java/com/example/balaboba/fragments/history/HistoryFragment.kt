@@ -1,5 +1,6 @@
 package com.example.balaboba.fragments.history
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,14 +11,21 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.balaboba.R
 import com.example.balaboba.adapters.HistoryAdapter
+import com.example.balaboba.appComponent
 import com.example.balaboba.databinding.FragmentHistoryBinding
-import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-@AndroidEntryPoint
+
 class HistoryFragment: Fragment(R.layout.fragment_history) {
     private lateinit var binding: FragmentHistoryBinding
-    private val vModel : HistoryViewModel by viewModels()
+    private val vModel : HistoryViewModel by viewModels {factory}
 
+    @Inject lateinit var factory:HistoryViewModel.Factory
+
+    override fun onAttach(context: Context) {
+        context.appComponent.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

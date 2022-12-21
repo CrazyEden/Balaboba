@@ -1,24 +1,28 @@
 package com.example.balaboba.fragments.main
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.balaboba.data.local.room.BalabobEntity
 import com.example.balaboba.data.model.BalabobaRequest
 import com.example.balaboba.data.repositories.LocalStorageRepository
 import com.example.balaboba.data.repositories.NetworkRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-@HiltViewModel
-class MainViewModel @Inject constructor(
+
+class MainViewModel(
     private val network: NetworkRepository,
     private val database: LocalStorageRepository
 ) :ViewModel() {
+    init {
+        Log.e("xdd", "netw&db $network $database: ", )
+    }
     private var _liveString = MutableLiveData<String>()
     var liveString = _liveString
 
@@ -52,14 +56,6 @@ class MainViewModel @Inject constructor(
                 else->                      _errorStr.postValue(it.toString())
             }
         }
-
-
-
-
-
-
-
-
     }
 
     fun getSpinnerState() = database.getSpinnerState()
@@ -68,6 +64,17 @@ class MainViewModel @Inject constructor(
     fun saveSpinnerAndFilterState(filterState:Boolean,spinnerState:Int){
         database.saveFilterState(filterState)
         database.saveSpinnerState(spinnerState)
+    }
+
+    class Factory @Inject constructor(
+        private val network: NetworkRepository,
+        private val database: LocalStorageRepository
+    ):ViewModelProvider.Factory{
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            require(modelClass.isAssignableFrom(MainViewModel::class.java))
+            return MainViewModel(network, database) as T
+        }
+
     }
 }
 
