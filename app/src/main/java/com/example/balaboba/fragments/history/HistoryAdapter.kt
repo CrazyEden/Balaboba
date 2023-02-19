@@ -1,4 +1,4 @@
-package com.example.balaboba.adapters
+package com.example.balaboba.fragments.history
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -1,15 +1,11 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.Balaboba" parent="Theme.MaterialComponents.Light">
-        <!-- Primary brand color. -->
-
-        <!-- Status bar color. -->
-
-        <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
         <item name="android:textColor"> @color/black</item>
         <item name="android:textColorHint"> @color/black</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 </resources>

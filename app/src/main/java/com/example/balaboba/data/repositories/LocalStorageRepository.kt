@@ -13,7 +13,7 @@ class LocalStorageRepository @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) {
 
-    suspend fun getAllSavedForHistoryFragment():List<HistoryFragmentTuple>? = db.getAllMinidata()
+    suspend fun getAllSavedForHistoryFragment():List<HistoryFragmentTuple>? = db.getAll()
 
     suspend fun insertInDb(balabobEntity: BalabobEntity){
         db.insertBalabob(balabobEntity)
@@ -39,3 +39,4 @@ class LocalStorageRepository @Inject constructor(
     private val FILTER_KEY = "FILTER"
     private val THEME_KEY = "THEME"
 }
+

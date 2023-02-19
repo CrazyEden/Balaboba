@@ -1,95 +1,76 @@
 package com.example.balaboba.fragments.main
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
-import com.example.balaboba.data.local.room.BalabobEntity
+import androidx.lifecycle.*
+import com.example.balaboba.core.Communication
+import com.example.balaboba.core.DispatchersList
+import com.example.balaboba.data.model.Balabob
 import com.example.balaboba.data.model.BalabobaRequest
-import com.example.balaboba.data.repositories.LocalStorageRepository
-import com.example.balaboba.data.repositories.NetworkRepository
-import kotlinx.coroutines.Dispatchers
+import com.example.balaboba.data.model.BalabobaResponseUiState
+import com.example.balaboba.data.repositories.BalabobaNetworkRepository
+import com.example.balaboba.data.repositories.ManageBalabobs
+import com.example.balaboba.data.repositories.SettingsManager
 import kotlinx.coroutines.launch
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 import javax.inject.Inject
-
+import javax.inject.Named
 
 class MainViewModel(
-    private val network: NetworkRepository,
-    private val database: LocalStorageRepository
-) :ViewModel() {
-    init {
-        Log.e("xdd", "netw&db $network $database: ", )
+    private val network: BalabobaNetworkRepository,
+    private val settingsManager: SettingsManager,
+    private val manageBalabobs: ManageBalabobs,
+    private val communication: Communication<String>,
+    private val dispatchersList: DispatchersList,
+    private val mapper: StyleMapper,
+) : ViewModel() {
+    fun observe(owner: LifecycleOwner, observer: Observer<String>) {
+        communication.observe(owner, observer)
     }
-    private var _liveString = MutableLiveData<String>()
-    var liveString = _liveString
 
-    private var _errorStr = MutableLiveData<String>()
-    var errorStr = _errorStr
+    fun balabobIt(query: BalabobaRequest) =
+        viewModelScope.launch(dispatchersList.getIO()) {
+            val response = network.balabobIt(query)
+            if (response is BalabobaResponseUiState.Success)
+                manageBalabobs.saveBalabob(
+                    Balabob(
+                        query = query.query,
+                        response = response.getTextToShow(),
+                        filter = query.filter,
+                        style = mapper.toStyleString(query.intro)
+                    )
+                )
 
-    fun load(query:String, intro:Int, filter:Boolean) = viewModelScope.launch(Dispatchers.IO){
-
-        runCatching {
-            val res = network.load(BalabobaRequest(
-                query = query,
-                intro = intro,
-                filter = filter))
-            if (res.body()?.badQuery == 1) throw BadQueryException()
-            if (res.isSuccessful && res.body()?.text.isNullOrEmpty()) throw YandexException()
-
-            _liveString.postValue(res.body()?.text)
-            database.insertInDb(BalabobEntity(
-                query = query,
-                response = res.body()?.text!!,
-                filter = filter,
-                style = intro.toStyle())
-            )
-
-        }.getOrElse {
-            when(it){
-                is SocketTimeoutException ->_errorStr.postValue("TIMEOUT")
-                is UnknownHostException ->  _errorStr.postValue("NO_INTERNET")
-                is YandexException ->       _errorStr.postValue("YANDEX_MOMENT")
-                is BadQueryException ->     _errorStr.postValue("NO_POLITIC")
-                else->                      _errorStr.postValue(it.toString())
-            }
+            communication.map(response.getTextToShow())
         }
+
+    fun getSpinnerState() = settingsManager.getSpinnerState()
+
+    fun getFilterState() = settingsManager.getFilterState()
+    fun saveSpinnerState(spinnerState: Int) {
+        settingsManager.saveSpinnerState(spinnerState)
     }
 
-    fun getSpinnerState() = database.getSpinnerState()
-
-    fun getFilterState() = database.getFilterState()
-    fun saveSpinnerAndFilterState(filterState:Boolean,spinnerState:Int){
-        database.saveFilterState(filterState)
-        database.saveSpinnerState(spinnerState)
+    fun saveFilterState(filterState: Boolean) {
+        settingsManager.saveFilterState(filterState)
     }
 
     class Factory @Inject constructor(
-        private val network: NetworkRepository,
-        private val database: LocalStorageRepository
-    ):ViewModelProvider.Factory{
+        private val network: BalabobaNetworkRepository,
+        private val settingsManager: SettingsManager,
+        private val manageBalabobs: ManageBalabobs,
+        @Named("MainFrCommunication")
+        private val communication: Communication<String>,
+        private val dispatchersList: DispatchersList,
+        private val styleMapper: StyleMapper,
+    ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             require(modelClass.isAssignableFrom(MainViewModel::class.java))
-            return MainViewModel(network, database) as T
+            return MainViewModel(
+                network,
+                settingsManager,
+                manageBalabobs,
+                communication,
+                dispatchersList,
+                styleMapper
+            ) as T
         }
-
-    }
-}
-
-class BadQueryException: Exception()
-class YandexException: Exception()
-
-private fun Int.toStyle(): String {
-    return when(this){
-        0 -> "Без стиля"
-        6 -> "Короткие истории"
-        8 -> "Короче, Википедия"
-        9 -> "Синопсисы фильмов"
-        11 -> "Народные мудрости"
-        24 -> "Инструкция по применению"
-        25 -> "Рецепты"
-        else -> throw IllegalArgumentException("unknown id")
     }
 }

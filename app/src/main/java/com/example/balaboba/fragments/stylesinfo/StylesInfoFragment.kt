@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.balaboba.R
-import com.example.balaboba.adapters.StyleInfoAdapter
 import com.example.balaboba.data.model.Style
 import com.example.balaboba.databinding.FragmentStylesInfoBinding
 
