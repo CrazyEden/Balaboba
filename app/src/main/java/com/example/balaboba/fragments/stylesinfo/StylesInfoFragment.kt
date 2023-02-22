@@ -18,20 +18,17 @@ class StylesInfoFragment : Fragment(R.layout.fragment_styles_info) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentStylesInfoBinding.inflate(layoutInflater,container,false)
-
-        val list = listOf(
-            Style(getString(R.string.first_style),getString(R.string.first_style_info)),
-            Style(getString(R.string.second_style),getString(R.string.second_style_info)),
-            Style(getString(R.string.third_style),getString(R.string.third_style_info)),
-            Style(getString(R.string.fourth_style),getString(R.string.fourth_style_info)),
-            Style(getString(R.string.fifth_style),getString(R.string.fifth_style_info)),
-            Style(getString(R.string.sixth_style),getString(R.string.sixth_style_info)),
-            Style(getString(R.string.seventh_style),getString(R.string.seventh_style_info))
+        binding.listView.adapter = StyleInfoAdapter(
+            listOf(
+                Style(getString(R.string.first_style),getString(R.string.first_style_info)),
+                Style(getString(R.string.second_style),getString(R.string.second_style_info)),
+                Style(getString(R.string.third_style),getString(R.string.third_style_info)),
+                Style(getString(R.string.fourth_style),getString(R.string.fourth_style_info)),
+                Style(getString(R.string.fifth_style),getString(R.string.fifth_style_info)),
+                Style(getString(R.string.sixth_style),getString(R.string.sixth_style_info)),
+                Style(getString(R.string.seventh_style),getString(R.string.seventh_style_info))
+            )
         )
-        val adapter = StyleInfoAdapter()
-        adapter.setData(list)
-
-        binding.listView.adapter = adapter
         return binding.root
     }
 

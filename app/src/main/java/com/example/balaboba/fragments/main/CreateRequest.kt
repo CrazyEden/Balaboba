@@ -9,7 +9,7 @@ import com.example.balaboba.databinding.FragmentMainBinding
 class CreateRequest(private val binding: FragmentMainBinding, private val context: Context?) {
     fun isReady():Boolean{
         return !binding.inputText.text.isNullOrEmpty().also {
-            if (!it)
+            if (it)
                 Toast.makeText(
                 context,
                 context?.getString(R.string.input_text_is_empty),

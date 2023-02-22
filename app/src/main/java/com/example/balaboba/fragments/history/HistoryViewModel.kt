@@ -1,29 +1,38 @@
 package com.example.balaboba.fragments.history
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.lifecycle.viewmodel.CreationExtras
+import com.example.balaboba.core.Communication
+import com.example.balaboba.core.DispatchersList
 import com.example.balaboba.data.local.room.HistoryFragmentTuple
-import kotlinx.coroutines.Dispatchers
+import com.example.balaboba.data.repositories.ManageBalabobs
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Named
 
 
 class HistoryViewModel(
-//    private val database: LocalStorageRepository
+    private val manage: ManageBalabobs,
+    private val communication: Communication<List<HistoryFragmentTuple>>,
+    private val dispatchersList: DispatchersList
 ):ViewModel() {
-    private val _listOfBalabobs =  MutableLiveData<List<HistoryFragmentTuple>?>()
-    val listOfBalabobs = _listOfBalabobs
-
-    fun load() = viewModelScope.launch(Dispatchers.IO) {
-//        _listOfBalabobs.postValue(database.getAllSavedForHistoryFragment())
+    init {
+        viewModelScope.launch(dispatchersList.getIO()) {
+            communication.map(manage.getAllBalabob())
+        }
     }
-    class Factory @Inject constructor()
+    fun observe(owner: LifecycleOwner, observer: Observer<List<HistoryFragmentTuple>>) {
+        communication.observe(owner, observer)
+    }
+    class Factory @Inject constructor(
+        private val manage: ManageBalabobs,
+        @Named("HistoryCommunication")
+        private val communication: Communication<List<HistoryFragmentTuple>>,
+        private val dispatchersList: DispatchersList
+    )
         : ViewModelProvider.Factory{
         override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-            return HistoryViewModel() as T
+            return HistoryViewModel(manage,communication,dispatchersList) as T
         }
     }
 }

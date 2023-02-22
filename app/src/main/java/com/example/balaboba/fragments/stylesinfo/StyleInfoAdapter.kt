@@ -6,16 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.balaboba.data.model.Style
 import com.example.balaboba.databinding.ItemStyleBinding
 
-class StyleInfoAdapter : RecyclerView.Adapter<StyleInfoAdapter.StyleInfoViewHolder>() {
+class StyleInfoAdapter(
+    private var list: List<Style>
+) : RecyclerView.Adapter<StyleInfoAdapter.StyleInfoViewHolder>() {
     class StyleInfoViewHolder(val binding:ItemStyleBinding) :RecyclerView.ViewHolder(binding.root)
-
-    private var list = listOf<Style>()
-
-    fun setData(list:List<Style>){
-        this.list=list
-        notifyDataSetChanged()
-    }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StyleInfoViewHolder {
         val inflater = LayoutInflater.from(parent.context)

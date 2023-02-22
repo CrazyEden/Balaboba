@@ -32,8 +32,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.spinner.apply {
-            setOnSelectListener { vModel.saveSpinnerState(it) }
             setSelection(vModel.getSpinnerState())
+            setOnSelectListener { vModel.saveSpinnerState(it) }
         }
         binding.filter.apply {
             isChecked = vModel.getFilterState()

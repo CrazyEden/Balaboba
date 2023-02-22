@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         if (vModel.getThemeMode() == 2) switcher.isChecked = true
 
         switcher.setOnCheckedChangeListener { _, isChecked ->
+            vModel.saveThemeMode(isChecked)
             AppCompatDelegate.setDefaultNightMode(
                 if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
                 else AppCompatDelegate.MODE_NIGHT_NO
@@ -87,10 +88,4 @@ class MainActivity : AppCompatActivity() {
             return@setNavigationItemSelectedListener true
         }
     }
-
-    override fun onStop() {
-        vModel.saveThemeMode(switcher.isChecked)
-        super.onStop()
-    }
-
 }

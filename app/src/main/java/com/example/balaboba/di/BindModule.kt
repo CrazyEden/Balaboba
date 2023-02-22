@@ -2,10 +2,12 @@ package com.example.balaboba.di
 
 import com.example.balaboba.core.Communication
 import com.example.balaboba.core.DispatchersList
+import com.example.balaboba.data.local.room.HistoryFragmentTuple
 import com.example.balaboba.data.repositories.BalabobaNetworkRepository
 import com.example.balaboba.data.repositories.ManageBalabobs
 import com.example.balaboba.data.repositories.NightModeManager
 import com.example.balaboba.data.repositories.SettingsManager
+import com.example.balaboba.fragments.history.HistoryCommunication
 import com.example.balaboba.fragments.main.MainFrCommunication
 import com.example.balaboba.fragments.main.StyleMapper
 import dagger.Binds
@@ -20,6 +22,11 @@ interface BindModule {
     @Binds
     @Named("MainFrCommunication")
     fun bindMainViewModelCommunication(communication: MainFrCommunication): Communication<String>
+
+    @Binds
+    @Named("HistoryCommunication")
+    fun bindHistoryCommunication(communicationn: HistoryCommunication):
+            Communication<List<HistoryFragmentTuple>>
 
     @Binds
     fun bindManageBalabobs(manageBalabobs: ManageBalabobs.Base): ManageBalabobs

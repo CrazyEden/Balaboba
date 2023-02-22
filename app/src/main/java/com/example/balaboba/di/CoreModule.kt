@@ -5,10 +5,12 @@ import android.content.SharedPreferences
 import com.example.balaboba.core.DispatchersList
 import com.example.balaboba.data.repositories.NightModeManager
 import com.example.balaboba.data.repositories.SettingsManager
+import com.example.balaboba.fragments.history.HistoryCommunication
 import com.example.balaboba.fragments.main.MainFrCommunication
 import com.example.balaboba.fragments.main.StyleMapper
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -24,8 +26,13 @@ object CoreModule {
 
     @Provides
     @Singleton
-    fun provideSettingsManager(sharedPreferences: SharedPreferences): SettingsManager.Base =
-        SettingsManager.Base(sharedPreferences)
+    fun provideHistoryCommunication(): HistoryCommunication = HistoryCommunication()
+
+    @Provides
+    @Singleton
+    fun provideSettingsManager(
+        @Named("settingsSharedPreferences") sharedPreferences: SharedPreferences
+    ): SettingsManager.Base = SettingsManager.Base(sharedPreferences)
 
     @Provides
     @Singleton
@@ -33,6 +40,7 @@ object CoreModule {
 
     @Provides
     @Singleton
-    fun provideNightModeManager(sharedPreferences: SharedPreferences):
-            NightModeManager.Base = NightModeManager.Base(sharedPreferences)
+    fun provideNightModeManager(
+        @Named("settingsSharedPreferences") sharedPreferences: SharedPreferences
+    ): NightModeManager.Base = NightModeManager.Base(sharedPreferences)
 }

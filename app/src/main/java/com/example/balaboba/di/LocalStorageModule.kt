@@ -2,16 +2,18 @@ package com.example.balaboba.di
 
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.example.balaboba.data.local.room.AppDatabase
 import com.example.balaboba.data.local.room.BalabobDatabase
 import com.example.balaboba.data.repositories.ManageBalabobs
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-object DatabaseModule {
+object LocalStorageModule {
 
     @Provides
     @Singleton
@@ -26,6 +28,10 @@ object DatabaseModule {
     @Singleton
     fun provideManageBalabobs(dp: BalabobDatabase): ManageBalabobs.Base = ManageBalabobs.Base(dp)
 
-
+    @Provides
+    @Singleton
+    @Named("settingsSharedPreferences")
+    fun provideSharedPreferences(context: Context): SharedPreferences =
+        context.getSharedPreferences("SETTINGS", Context.MODE_PRIVATE)
 
 }

@@ -1,18 +1,19 @@
 package com.example.balaboba
 
 import android.content.Context
-import com.example.balaboba.di.*
+import com.example.balaboba.di.BindModule
+import com.example.balaboba.di.CoreModule
+import com.example.balaboba.di.LocalStorageModule
+import com.example.balaboba.di.NetworkModule
 import com.example.balaboba.fragments.history.HistoryFragment
 import com.example.balaboba.fragments.main.MainFragment
 import dagger.Component
-import dagger.Component.Builder
 import javax.inject.Singleton
 
 @Component(
     modules = [
-        DatabaseModule::class,
+        LocalStorageModule::class,
         NetworkModule::class,
-        SharedPreferencesModule::class,
         CoreModule::class,
         BindModule::class,
     ],
