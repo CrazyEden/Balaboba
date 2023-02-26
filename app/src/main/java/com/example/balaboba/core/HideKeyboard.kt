@@ -9,5 +9,4 @@ fun Activity?.hideKeyboard(){
         ContextCompat.getSystemService(this, InputMethodManager::class.java)
             ?.hideSoftInputFromWindow(view.windowToken, 0)
     }
-
 }

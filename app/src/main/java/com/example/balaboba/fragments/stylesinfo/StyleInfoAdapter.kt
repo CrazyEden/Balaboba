@@ -7,7 +7,7 @@ import com.example.balaboba.data.model.Style
 import com.example.balaboba.databinding.ItemStyleBinding
 
 class StyleInfoAdapter(
-    private var list: List<Style>
+    private val list: List<Style>
 ) : RecyclerView.Adapter<StyleInfoAdapter.StyleInfoViewHolder>() {
     class StyleInfoViewHolder(val binding:ItemStyleBinding) :RecyclerView.ViewHolder(binding.root)
 

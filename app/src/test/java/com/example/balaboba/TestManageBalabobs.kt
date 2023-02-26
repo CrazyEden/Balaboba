@@ -4,8 +4,9 @@ import com.example.balaboba.data.local.room.HistoryFragmentTuple
 import com.example.balaboba.data.model.Balabob
 import com.example.balaboba.data.repositories.ManageBalabobs
 
-internal class TestManageBalabobs : ManageBalabobs {
-    private val history = mutableListOf<HistoryFragmentTuple>()
+internal class TestManageBalabobs(
+    private val history:MutableList<HistoryFragmentTuple> = mutableListOf()
+) : ManageBalabobs {
     override suspend fun saveBalabob(balabob: Balabob) {
         history.add(
             HistoryFragmentTuple(

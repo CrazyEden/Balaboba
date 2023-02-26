@@ -11,12 +11,15 @@ import com.example.balaboba.R
 import com.example.balaboba.appComponent
 import com.example.balaboba.core.hideKeyboard
 import com.example.balaboba.core.setOnSelectListener
+import com.example.balaboba.core.showShortToast
+import com.example.balaboba.data.model.BalabobaRequest
 import com.example.balaboba.databinding.FragmentMainBinding
 import javax.inject.Inject
 
 
 class MainFragment : Fragment(R.layout.fragment_main) {
     private lateinit var binding: FragmentMainBinding
+    private val spinnerMapper: SpinnerPositionMapper = SpinnerPositionMapper.Base()
 
     @Inject
     lateinit var factory: MainViewModel.Factory
@@ -45,35 +48,26 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             if (scrollY == 0) binding.button.show()
         }
 
-        vModel.observe(viewLifecycleOwner) {
-            binding.progressBar.visibility = View.INVISIBLE
-            binding.txt.visibility = View.VISIBLE
-            binding.button.isClickable = true
-            binding.txt.text = it
-        }
+        vModel.observe(viewLifecycleOwner) { binding.unlockView(it) }
+
         binding.inputText.setOnEditorActionListener { _, _, _ ->
-            CreateRequest(binding, context).apply {
-                if (isReady()) {
-                    binding.progressBar.visibility = View.VISIBLE
-                    binding.txt.visibility = View.INVISIBLE
-                    binding.button.isClickable = false
-                    vModel.balabobIt(getRequestData())
-                }
-            }
-            activity.hideKeyboard()
+            sendRequest()
             true
         }
-        binding.button.setOnClickListener {
-            CreateRequest(binding, context).apply {
-                if (isReady()) {
-                    binding.progressBar.visibility = View.VISIBLE
-                    binding.txt.visibility = View.INVISIBLE
-                    binding.button.isClickable = false
-                    vModel.balabobIt(getRequestData())
-                }
-            }
-            activity.hideKeyboard()
-        }
+        binding.button.setOnClickListener { sendRequest() }
         return binding.root
+    }
+
+    private fun sendRequest() {
+        if (binding.inputText.text.isNullOrEmpty())
+            return context.showShortToast(R.string.input_text_is_empty)
+        val request = BalabobaRequest(
+            query = binding.inputText.text.toString(),
+            intro = spinnerMapper.positionToIntro(binding.spinner.selectedItemPosition),
+            filter = binding.filter.isChecked
+        )
+        binding.lockView()
+        activity.hideKeyboard()
+        vModel.balabobIt(request)
     }
 }
