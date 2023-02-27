@@ -1,10 +1,11 @@
-package com.example.balaboba
+package com.example.balaboba.di
 
-import android.content.Context
-import com.example.balaboba.di.BindModule
-import com.example.balaboba.di.CoreModule
-import com.example.balaboba.di.LocalStorageModule
-import com.example.balaboba.di.NetworkModule
+import com.example.balaboba.MainActivity
+import com.example.balaboba.di.modules.BindModule
+import com.example.balaboba.di.modules.CoreModule
+import com.example.balaboba.di.modules.LocalStorageModule
+import com.example.balaboba.di.modules.NetworkModule
+import com.example.balaboba.di.modules.viewmodels.ViewModelBindModule
 import com.example.balaboba.fragments.history.HistoryFragment
 import com.example.balaboba.fragments.main.MainFragment
 import dagger.Component
@@ -16,6 +17,7 @@ import javax.inject.Singleton
         NetworkModule::class,
         CoreModule::class,
         BindModule::class,
+        ViewModelBindModule::class
     ],
     dependencies = [AppDependency::class]
 )
@@ -32,6 +34,3 @@ interface AppComponent {
     }
 }
 
-interface AppDependency {
-    val context: Context
-}

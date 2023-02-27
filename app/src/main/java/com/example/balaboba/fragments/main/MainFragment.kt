@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.balaboba.R
 import com.example.balaboba.appComponent
 import com.example.balaboba.core.hideKeyboard
@@ -21,8 +22,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private lateinit var binding: FragmentMainBinding
     private val spinnerMapper: SpinnerPositionMapper = SpinnerPositionMapper.Base()
 
-    @Inject
-    lateinit var factory: MainViewModel.Factory
+    @Inject lateinit var factory: ViewModelProvider.Factory
     private val vModel: MainViewModel by viewModels { factory }
     override fun onAttach(context: Context) {
         context.appComponent.inject(this)

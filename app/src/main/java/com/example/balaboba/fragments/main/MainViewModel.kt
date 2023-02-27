@@ -1,6 +1,9 @@
 package com.example.balaboba.fragments.main
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.balaboba.core.Communication
 import com.example.balaboba.core.DispatchersList
 import com.example.balaboba.data.model.Balabob
@@ -10,8 +13,6 @@ import com.example.balaboba.data.repositories.BalabobaNetworkRepository
 import com.example.balaboba.data.repositories.ManageBalabobs
 import com.example.balaboba.data.repositories.SettingsManager
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-import javax.inject.Named
 
 class MainViewModel(
     private val network: BalabobaNetworkRepository,
@@ -20,12 +21,12 @@ class MainViewModel(
     private val communication: Communication<String>,
     private val dispatchersList: DispatchersList,
     private val mapper: StyleMapper,
-) : ViewModel() {
-    fun observe(owner: LifecycleOwner, observer: Observer<String>) {
+) : ViewModel(), MainViewModelCore {
+    override fun observe(owner: LifecycleOwner, observer: Observer<String>) {
         communication.observe(owner, observer)
     }
 
-    fun balabobIt(query: BalabobaRequest) =
+    override fun balabobIt(query: BalabobaRequest) =
         viewModelScope.launch(dispatchersList.getIO()) {
             val response = network.balabobIt(query)
             if (response is BalabobaResponseUiState.Success)
@@ -41,36 +42,14 @@ class MainViewModel(
             communication.map(response.getTextToShow())
         }
 
-    fun getSpinnerState() = settingsManager.getSpinnerState()
+    override fun getSpinnerState() = settingsManager.getSpinnerState()
 
-    fun getFilterState() = settingsManager.getFilterState()
-    fun saveSpinnerState(spinnerState: Int) {
+    override fun getFilterState() = settingsManager.getFilterState()
+    override fun saveSpinnerState(spinnerState: Int) {
         settingsManager.saveSpinnerState(spinnerState)
     }
 
-    fun saveFilterState(filterState: Boolean) {
+    override fun saveFilterState(filterState: Boolean) {
         settingsManager.saveFilterState(filterState)
-    }
-
-    class Factory @Inject constructor(
-        private val network: BalabobaNetworkRepository,
-        private val settingsManager: SettingsManager,
-        private val manageBalabobs: ManageBalabobs,
-        @Named("MainFrCommunication")
-        private val communication: Communication<String>,
-        private val dispatchersList: DispatchersList,
-        private val styleMapper: StyleMapper,
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            require(modelClass.isAssignableFrom(MainViewModel::class.java))
-            return MainViewModel(
-                network,
-                settingsManager,
-                manageBalabobs,
-                communication,
-                dispatchersList,
-                styleMapper
-            ) as T
-        }
     }
 }

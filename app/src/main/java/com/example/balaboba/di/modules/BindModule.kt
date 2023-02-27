@@ -1,4 +1,4 @@
-package com.example.balaboba.di
+package com.example.balaboba.di.modules
 
 import com.example.balaboba.core.Communication
 import com.example.balaboba.core.DispatchersList

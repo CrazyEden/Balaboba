@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.balaboba.R
 import com.example.balaboba.appComponent
 import com.example.balaboba.core.showLongToast
@@ -18,7 +19,7 @@ class HistoryFragment : Fragment() {
     private lateinit var binding: FragmentHistoryBinding
 
     @Inject
-    lateinit var factory: HistoryViewModel.Factory
+    lateinit var factory: ViewModelProvider.Factory
     private val vModel: HistoryViewModel by viewModels { factory }
     private val adapter = HistoryAdapter()
 

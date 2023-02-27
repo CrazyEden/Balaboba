@@ -1,12 +1,12 @@
-package com.example.balaboba
+package com.example.balaboba.fragments.main
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.example.balaboba.core.Communication
 
-internal interface TestStringCommunication : Communication<String> {
+internal interface FakeStringCommunication : Communication<String> {
     fun getCurrentState(): String
-    class Base() : TestStringCommunication {
+    class Base() : FakeStringCommunication {
         private var value: String = ""
         override fun map(value: String) {
             this.value = value

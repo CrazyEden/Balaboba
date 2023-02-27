@@ -5,7 +5,7 @@ import com.example.balaboba.data.model.BalabobaResponse
 import com.example.balaboba.data.model.BalabobaResponseUiState
 import com.example.balaboba.data.repositories.BalabobaNetworkRepository
 
-internal class TestBalabobaNetworkRepository : BalabobaNetworkRepository {
+internal class FakeBalabobaNetworkRepository : BalabobaNetworkRepository {
     override suspend fun balabobIt(balabobaRequest: BalabobaRequest): BalabobaResponseUiState {
         return BalabobaResponseUiState.Success(
             BalabobaResponse(

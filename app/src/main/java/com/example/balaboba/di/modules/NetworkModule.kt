@@ -1,4 +1,4 @@
-package com.example.balaboba.di
+package com.example.balaboba.di.modules
 
 import android.content.Context
 import com.example.balaboba.core.ApiInterface
@@ -20,12 +20,17 @@ object NetworkModule {
     fun provideAPi(retrofit: Retrofit): ApiInterface = retrofit.create(ApiInterface::class.java)
 
     @Provides
-    fun provideRetrofit(client: OkHttpClient): Retrofit =
+    fun provideRetrofit(
+        client: OkHttpClient,
+        converterFactory: GsonConverterFactory
+    ): Retrofit =
         Retrofit.Builder()
             .baseUrl("https://yandex.com/lab/api/")
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(converterFactory)
             .client(client)
             .build()
+    @Provides
+    fun provideConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
 
     @Provides
     fun provideClient(): OkHttpClient =

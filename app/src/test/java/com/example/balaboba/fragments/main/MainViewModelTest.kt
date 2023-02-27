@@ -1,6 +1,9 @@
 package com.example.balaboba.fragments.main
 
-import com.example.balaboba.*
+import com.example.balaboba.FakeBalabobaNetworkRepository
+import com.example.balaboba.FakeManageBalabobs
+import com.example.balaboba.FakeSettingsManager
+import com.example.balaboba.FakeStyleMapper
 import com.example.balaboba.data.local.room.HistoryFragmentTuple
 import com.example.balaboba.data.model.BalabobaRequest
 import com.example.balaboba.dispatchers.TestDispatchersList
@@ -13,12 +16,12 @@ internal class MainViewModelTest {
     @Test
     fun simpleSaveState() {
         val vModel = MainViewModel(
-            network = TestBalabobaNetworkRepository(),
-            settingsManager = TestSettingsManager(),
-            manageBalabobs = TestManageBalabobs(),
-            communication = TestStringCommunication.Base(),
+            network = FakeBalabobaNetworkRepository(),
+            settingsManager = FakeSettingsManager(),
+            manageBalabobs = FakeManageBalabobs(),
+            communication = FakeStringCommunication.Base(),
             dispatchersList = TestDispatchersList(),
-            mapper = TestStyleMapper()
+            mapper = FakeStyleMapper()
         )
         vModel.saveFilterState(false)
         vModel.saveSpinnerState(1)
@@ -29,12 +32,12 @@ internal class MainViewModelTest {
     @Test
     fun twoSaveStateTwoCheck() {
         val vModel = MainViewModel(
-            network = TestBalabobaNetworkRepository(),
-            settingsManager = TestSettingsManager(),
-            manageBalabobs = TestManageBalabobs(),
-            communication = TestStringCommunication.Base(),
+            network = FakeBalabobaNetworkRepository(),
+            settingsManager = FakeSettingsManager(),
+            manageBalabobs = FakeManageBalabobs(),
+            communication = FakeStringCommunication.Base(),
             dispatchersList = TestDispatchersList(),
-            mapper = TestStyleMapper()
+            mapper = FakeStyleMapper()
         )
         vModel.saveFilterState(false)
         vModel.saveSpinnerState(4)
@@ -52,12 +55,12 @@ internal class MainViewModelTest {
     @Test
     fun twoSaveStateOneCheck() {
         val vModel = MainViewModel(
-            network = TestBalabobaNetworkRepository(),
-            settingsManager = TestSettingsManager(),
-            manageBalabobs = TestManageBalabobs(),
-            communication = TestStringCommunication.Base(),
+            network = FakeBalabobaNetworkRepository(),
+            settingsManager = FakeSettingsManager(),
+            manageBalabobs = FakeManageBalabobs(),
+            communication = FakeStringCommunication.Base(),
             dispatchersList = TestDispatchersList(),
-            mapper = TestStyleMapper()
+            mapper = FakeStyleMapper()
         )
         vModel.saveFilterState(false)
         vModel.saveSpinnerState(4)
@@ -71,14 +74,14 @@ internal class MainViewModelTest {
 
     @Test
     fun simpleBalabob() = runBlocking<Unit> {
-        val communication = TestStringCommunication.Base()
+        val communication = FakeStringCommunication.Base()
         val vModel = MainViewModel(
-            network = TestBalabobaNetworkRepository(),
-            settingsManager = TestSettingsManager(),
-            manageBalabobs = TestManageBalabobs(),
+            network = FakeBalabobaNetworkRepository(),
+            settingsManager = FakeSettingsManager(),
+            manageBalabobs = FakeManageBalabobs(),
             communication = communication,
             dispatchersList = TestDispatchersList(),
-            mapper = TestStyleMapper()
+            mapper = FakeStyleMapper()
         )
         BalabobaRequest(query = "test", intro = 0, filter = true).also {
             vModel.balabobIt(it).join()
@@ -88,14 +91,14 @@ internal class MainViewModelTest {
 
     @Test
     fun twoBalabobOneCheck() = runBlocking<Unit> {
-        val communication = TestStringCommunication.Base()
+        val communication = FakeStringCommunication.Base()
         val vModel = MainViewModel(
-            network = TestBalabobaNetworkRepository(),
-            settingsManager = TestSettingsManager(),
-            manageBalabobs = TestManageBalabobs(),
+            network = FakeBalabobaNetworkRepository(),
+            settingsManager = FakeSettingsManager(),
+            manageBalabobs = FakeManageBalabobs(),
             communication = communication,
             dispatchersList = TestDispatchersList(),
-            mapper = TestStyleMapper()
+            mapper = FakeStyleMapper()
         )
         BalabobaRequest(query = "first", intro = 2, filter = false).also {
             vModel.balabobIt(it).join()
@@ -108,14 +111,14 @@ internal class MainViewModelTest {
 
     @Test
     fun testBalabobCheckBalabobCheck() = runBlocking<Unit> {
-        val communication = TestStringCommunication.Base()
+        val communication = FakeStringCommunication.Base()
         val vModel = MainViewModel(
-            network = TestBalabobaNetworkRepository(),
-            settingsManager = TestSettingsManager(),
-            manageBalabobs = TestManageBalabobs(),
+            network = FakeBalabobaNetworkRepository(),
+            settingsManager = FakeSettingsManager(),
+            manageBalabobs = FakeManageBalabobs(),
             communication = communication,
             dispatchersList = TestDispatchersList(),
-            mapper = TestStyleMapper()
+            mapper = FakeStyleMapper()
         )
         BalabobaRequest(query = "123", intro = 0, filter = false).also {
             vModel.balabobIt(it).join()
@@ -129,14 +132,14 @@ internal class MainViewModelTest {
 
     @Test
     fun simpleBalabobCheckToSave() = runBlocking<Unit> {
-        val manage = TestManageBalabobs()
+        val manage = FakeManageBalabobs()
         val vModel = MainViewModel(
-            network = TestBalabobaNetworkRepository(),
-            settingsManager = TestSettingsManager(),
+            network = FakeBalabobaNetworkRepository(),
+            settingsManager = FakeSettingsManager(),
             manageBalabobs = manage,
-            communication = TestStringCommunication.Base(),
+            communication = FakeStringCommunication.Base(),
             dispatchersList = TestDispatchersList(),
-            mapper = TestStyleMapper()
+            mapper = FakeStyleMapper()
         )
         BalabobaRequest(query = "123", intro = 0, filter = false).also {
             vModel.balabobIt(it).join()
@@ -152,14 +155,14 @@ internal class MainViewModelTest {
 
     @Test
     fun aFewBalabobAndCheckToSave() = runBlocking<Unit> {
-        val manage = TestManageBalabobs()
+        val manage = FakeManageBalabobs()
         val vModel = MainViewModel(
-            network = TestBalabobaNetworkRepository(),
-            settingsManager = TestSettingsManager(),
+            network = FakeBalabobaNetworkRepository(),
+            settingsManager = FakeSettingsManager(),
             manageBalabobs = manage,
-            communication = TestStringCommunication.Base(),
+            communication = FakeStringCommunication.Base(),
             dispatchersList = TestDispatchersList(),
-            mapper = TestStyleMapper()
+            mapper = FakeStyleMapper()
         )
         val firstRequest = BalabobaRequest(query = "123", intro = 5, filter = true)
         val secondRequest = BalabobaRequest(query = "sdh", intro = 2, filter = true)

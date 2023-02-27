@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.balaboba.databinding.ActivityMainBinding
 import com.example.balaboba.fragments.history.HistoryFragment
 import com.example.balaboba.fragments.main.MainFragment
@@ -19,12 +20,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var switcher: SwitchCompat
 
-    @Inject lateinit var factory : ActivityViewModel.Factory
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
     private val vModel: ActivityViewModel by viewModels { factory }
-
-
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
