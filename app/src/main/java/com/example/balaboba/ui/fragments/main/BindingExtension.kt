@@ -1,4 +1,4 @@
-package com.example.balaboba.fragments.main
+package com.example.balaboba.ui.fragments.main
 
 import android.view.View
 import com.example.balaboba.databinding.FragmentMainBinding

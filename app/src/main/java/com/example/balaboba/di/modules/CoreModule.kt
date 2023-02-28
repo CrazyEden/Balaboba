@@ -5,9 +5,9 @@ import android.content.SharedPreferences
 import com.example.balaboba.core.DispatchersList
 import com.example.balaboba.data.repositories.NightModeManager
 import com.example.balaboba.data.repositories.SettingsManager
-import com.example.balaboba.fragments.history.HistoryCommunication
-import com.example.balaboba.fragments.main.MainFrCommunication
-import com.example.balaboba.fragments.main.StyleMapper
+import com.example.balaboba.ui.fragments.history.HistoryCommunication
+import com.example.balaboba.ui.fragments.main.MainFrCommunication
+import com.example.balaboba.ui.fragments.main.StyleMapper
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named

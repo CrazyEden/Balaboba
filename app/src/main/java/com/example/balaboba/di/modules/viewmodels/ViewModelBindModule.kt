@@ -2,9 +2,9 @@ package com.example.balaboba.di.modules.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.balaboba.ActivityViewModel
-import com.example.balaboba.fragments.history.HistoryViewModel
-import com.example.balaboba.fragments.main.MainViewModel
+import com.example.balaboba.ui.activity.ActivityViewModel
+import com.example.balaboba.ui.fragments.history.HistoryViewModel
+import com.example.balaboba.ui.fragments.main.MainViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

@@ -1,60 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item
-        android:title="@string/main_block">
+    <item android:title="@string/main_block">
         <menu>
             <item
                 android:id="@+id/menu_home"
-                android:title="@string/menu_home"
                 android:icon="@drawable/ic_home"
-                android:orderInCategory="1"/>
+                android:orderInCategory="1"
+                android:title="@string/menu_home" />
             <item
                 android:id="@+id/menu_about_style"
                 android:icon="@drawable/ic_brush"
-                android:title="@string/menu_about_style_title"
-                android:orderInCategory="2"/>
+                android:orderInCategory="2"
+                android:title="@string/menu_about_style_title" />
             <item
                 android:id="@+id/menu_about_filter"
                 android:icon="@drawable/ic_filter"
-                android:title="@string/menu_filter_title"
-                android:orderInCategory="3"/>
+                android:orderInCategory="3"
+                android:title="@string/menu_filter_title" />
             <item
                 android:id="@+id/menu_history"
-                android:title="@string/menu_database_title"
                 android:icon="@drawable/ic_history"
-                android:orderInCategory="4"/>
+                android:orderInCategory="4"
+                android:title="@string/menu_database_title" />
         </menu>
-
     </item>
-    <item
-        android:title="@string/block_settings">
+    <item android:title="@string/block_settings">
         <menu>
             <item
                 android:id="@+id/dark_theme_switcher"
+                android:orderInCategory="1"
                 android:title="@string/menu_dark_theme"
-                app:actionLayout="@layout/switch_item"
-                android:orderInCategory="1"/>
+                app:actionLayout="@layout/switch_item" />
         </menu>
-
     </item>
-    <item
-        android:title="@string/Links">
+    <item android:title="@string/Links">
         <menu>
             <item
                 android:id="@+id/site"
-                android:title="@string/open_sine"
-                android:orderInCategory="1"/>
+                android:orderInCategory="1"
+                android:title="@string/open_sine" />
             <item
                 android:id="@+id/about_balaboba"
-                android:title="@string/about_balaboba"
-                android:orderInCategory="2"/>
+                android:orderInCategory="2"
+                android:title="@string/about_balaboba" />
         </menu>
-
     </item>
-
 </menu>

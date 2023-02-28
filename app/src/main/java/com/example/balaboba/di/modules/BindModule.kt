@@ -7,9 +7,9 @@ import com.example.balaboba.data.repositories.BalabobaNetworkRepository
 import com.example.balaboba.data.repositories.ManageBalabobs
 import com.example.balaboba.data.repositories.NightModeManager
 import com.example.balaboba.data.repositories.SettingsManager
-import com.example.balaboba.fragments.history.HistoryCommunication
-import com.example.balaboba.fragments.main.MainFrCommunication
-import com.example.balaboba.fragments.main.StyleMapper
+import com.example.balaboba.ui.fragments.history.HistoryCommunication
+import com.example.balaboba.ui.fragments.main.MainFrCommunication
+import com.example.balaboba.ui.fragments.main.StyleMapper
 import dagger.Binds
 import dagger.Module
 import javax.inject.Named

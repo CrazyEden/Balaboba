@@ -1,7 +1,7 @@
 package com.example.balaboba.di.modules
 
 import android.content.Context
-import com.example.balaboba.core.ApiInterface
+import com.example.balaboba.data.network.ApiInterface
 import com.example.balaboba.data.repositories.BalabobaNetworkRepository
 import dagger.Module
 import dagger.Provides

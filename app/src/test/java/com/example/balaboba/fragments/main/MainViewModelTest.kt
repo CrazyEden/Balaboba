@@ -7,6 +7,7 @@ import com.example.balaboba.FakeStyleMapper
 import com.example.balaboba.data.local.room.HistoryFragmentTuple
 import com.example.balaboba.data.model.BalabobaRequest
 import com.example.balaboba.dispatchers.TestDispatchersList
+import com.example.balaboba.ui.fragments.main.MainViewModel
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.runBlocking

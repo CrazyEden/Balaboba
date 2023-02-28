@@ -3,6 +3,7 @@ package com.example.balaboba.fragments.history
 import com.example.balaboba.FakeManageBalabobs
 import com.example.balaboba.data.local.room.HistoryFragmentTuple
 import com.example.balaboba.dispatchers.TestDispatchersList
+import com.example.balaboba.ui.fragments.history.HistoryViewModel
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking

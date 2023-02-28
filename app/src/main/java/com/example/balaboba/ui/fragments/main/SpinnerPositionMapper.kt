@@ -1,9 +1,9 @@
-package com.example.balaboba.fragments.main
+package com.example.balaboba.ui.fragments.main
 
 interface SpinnerPositionMapper {
     fun positionToIntro(position:Int):Int
 
-    class Base():SpinnerPositionMapper{
+    class Base(): SpinnerPositionMapper {
         override fun positionToIntro(position: Int): Int {
             return when (position) {
                 1 -> 6

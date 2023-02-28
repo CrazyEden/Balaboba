@@ -1,4 +1,4 @@
-package com.example.balaboba.fragments.main
+package com.example.balaboba.ui.fragments.main
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.balaboba.core.Communication
 import com.example.balaboba.core.DispatchersList
-import com.example.balaboba.data.model.Balabob
 import com.example.balaboba.data.model.BalabobaRequest
 import com.example.balaboba.data.model.BalabobaResponseUiState
 import com.example.balaboba.data.repositories.BalabobaNetworkRepository
@@ -28,18 +27,15 @@ class MainViewModel(
 
     override fun balabobIt(query: BalabobaRequest) =
         viewModelScope.launch(dispatchersList.getIO()) {
-            val response = network.balabobIt(query)
-            if (response is BalabobaResponseUiState.Success)
-                manageBalabobs.saveBalabob(
-                    Balabob(
-                        query = query.query,
-                        response = response.getTextToShow(),
-                        filter = query.filter,
+            network.balabobIt(query).also {
+                communication.map(it.getTextToShow())
+                if (it is BalabobaResponseUiState.Success)
+                    manageBalabobs.saveBalabob(
+                        response =it,
+                        request =query,
                         style = mapper.toStyleString(query.intro)
                     )
-                )
-
-            communication.map(response.getTextToShow())
+            }
         }
 
     override fun getSpinnerState() = settingsManager.getSpinnerState()

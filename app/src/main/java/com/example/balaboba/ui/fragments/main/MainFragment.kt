@@ -1,4 +1,4 @@
-package com.example.balaboba.fragments.main
+package com.example.balaboba.ui.fragments.main
 
 import android.content.Context
 import android.os.Bundle
@@ -23,7 +23,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private val spinnerMapper: SpinnerPositionMapper = SpinnerPositionMapper.Base()
 
     @Inject lateinit var factory: ViewModelProvider.Factory
-    private val vModel: MainViewModel by viewModels { factory }
+    private val vModel: MainViewModelCore by viewModels<MainViewModel> { factory }
     override fun onAttach(context: Context) {
         context.appComponent.inject(this)
         super.onAttach(context)

@@ -1,4 +1,4 @@
-package com.example.balaboba.core
+package com.example.balaboba.data.network
 
 import com.example.balaboba.data.model.BalabobaRequest
 import com.example.balaboba.data.model.BalabobaResponse

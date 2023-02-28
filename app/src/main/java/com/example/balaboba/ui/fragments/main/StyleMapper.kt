@@ -1,4 +1,4 @@
-package com.example.balaboba.fragments.main
+package com.example.balaboba.ui.fragments.main
 
 import android.content.Context
 import com.example.balaboba.R
@@ -6,7 +6,7 @@ import com.example.balaboba.R
 interface StyleMapper {
     fun toStyleString(style:Int):String
 
-    class Base(private val context: Context):StyleMapper{
+    class Base(private val context: Context): StyleMapper {
         override fun toStyleString(style: Int): String {
             return when (style) {
                 0 -> context.getString(R.string.fifth_style)

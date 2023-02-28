@@ -1,4 +1,4 @@
-package com.example.balaboba.fragments.stylesinfo
+package com.example.balaboba.ui.fragments.stylesinfo
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

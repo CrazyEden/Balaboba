@@ -13,8 +13,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
-        tools:text="Lable of style"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        tools:text="Lable of style" />
 
     <TextView
         android:id="@+id/style_info"

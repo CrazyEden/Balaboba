@@ -1,4 +1,4 @@
-package com.example.balaboba.fragments.history
+package com.example.balaboba.ui.fragments.history
 
 import android.content.Context
 import android.os.Bundle
@@ -20,7 +20,7 @@ class HistoryFragment : Fragment() {
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
-    private val vModel: HistoryViewModel by viewModels { factory }
+    private val vModel: HistoryViewModelCore by viewModels<HistoryViewModel> { factory }
     private val adapter = HistoryAdapter()
 
     override fun onAttach(context: Context) {

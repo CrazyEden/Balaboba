@@ -1,4 +1,4 @@
-package com.example.balaboba.fragments.main
+package com.example.balaboba.ui.fragments.main
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData

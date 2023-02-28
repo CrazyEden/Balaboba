@@ -1,11 +1,11 @@
 package com.example.balaboba.data.repositories
 
 import android.content.Context
-import com.example.balaboba.core.ApiInterface
 import com.example.balaboba.core.BadQueryException
 import com.example.balaboba.core.YandexException
 import com.example.balaboba.data.model.BalabobaRequest
 import com.example.balaboba.data.model.BalabobaResponseUiState
+import com.example.balaboba.data.network.ApiInterface
 
 
 interface BalabobaNetworkRepository{

@@ -1,4 +1,4 @@
-package com.example.balaboba.fragments.history
+package com.example.balaboba.ui.fragments.history
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -14,13 +14,14 @@ import kotlinx.coroutines.launch
 class HistoryViewModel(
     private val manage: ManageBalabobs,
     private val communication: Communication<List<HistoryFragmentTuple>>,
-    private val dispatchersList: DispatchersList
-):ViewModel(),HistoryViewModelCore {
+    private val dispatchersList: DispatchersList,
+) : ViewModel(), HistoryViewModelCore {
     init {
         viewModelScope.launch(dispatchersList.getIO()) {
             communication.map(manage.getAllBalabob())
         }
     }
+
     override fun observe(owner: LifecycleOwner, observer: Observer<List<HistoryFragmentTuple>>) {
         communication.observe(owner, observer)
     }
