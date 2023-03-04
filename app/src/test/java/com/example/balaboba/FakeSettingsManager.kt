@@ -2,9 +2,11 @@ package com.example.balaboba
 
 import com.example.balaboba.data.repositories.SettingsManager
 
-internal class FakeSettingsManager : SettingsManager {
-    private var spinner = 1
-    private var filter = false
+internal class FakeSettingsManager(
+    private var spinner: Int = 1,
+    private var filter: Boolean = false,
+) : SettingsManager {
+
     override fun saveSpinnerState(selectedItemId: Int) {
         spinner = selectedItemId
     }
