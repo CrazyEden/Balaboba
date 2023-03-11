@@ -4,7 +4,7 @@ import com.example.balaboba.FakeBalabobaNetworkRepository
 import com.example.balaboba.FakeManageBalabobs
 import com.example.balaboba.FakeSettingsManager
 import com.example.balaboba.FakeStyleMapper
-import com.example.balaboba.data.local.room.HistoryFragmentTuple
+import com.example.balaboba.data.local.room.BalabobEntity
 import com.example.balaboba.data.model.BalabobaRequest
 import com.example.balaboba.dispatchers.TestDispatchersList
 import com.example.balaboba.ui.fragments.main.MainViewModel
@@ -145,8 +145,8 @@ internal class MainViewModelTest {
         BalabobaRequest(query = "123", intro = 0, filter = false).also {
             vModel.balabobIt(it).join()
             val expected = listOf(
-                HistoryFragmentTuple(
-                    query = "123", response = it.toString(), style = "style 0"
+                BalabobEntity(
+                    query = "123", response = it.toString(), style = "style 0", id = 0, filter = false
                 )
             )
             val actual = manage.getAllBalabob()
@@ -175,14 +175,14 @@ internal class MainViewModelTest {
         )
 
         val expected = mutableListOf(
-            HistoryFragmentTuple(
-                query = "123", response = firstRequest.toString(), style = "style 5"
+            BalabobEntity(
+                query = "123", response = firstRequest.toString(), style = "style 5", id = 0, filter = true
             ),
-            HistoryFragmentTuple(
-                query = "sdh", response = secondRequest.toString(), style = "style 2"
+            BalabobEntity(
+                query = "sdh", response = secondRequest.toString(), style = "style 2", id = 0, filter = true
             ),
-            HistoryFragmentTuple(
-                query = "hbasd", response = thirdRequest.toString(), style = "style 0"
+            BalabobEntity(
+                query = "hbasd", response = thirdRequest.toString(), style = "style 0", id = 0, filter = false
             )
         )
         assertEquals(expected, manage.getAllBalabob())
@@ -190,8 +190,8 @@ internal class MainViewModelTest {
         val fourthRequest = BalabobaRequest(query = "jdty", intro = 1, filter = true)
         vModel.balabobIt(fourthRequest)
         expected.add(
-            HistoryFragmentTuple(
-                query = "jdty", response = fourthRequest.toString(), style = "style 1"
+            BalabobEntity(
+                query = "jdty", response = fourthRequest.toString(), style = "style 1", id = 0, filter = true
             )
         )
         assertEquals(expected, manage.getAllBalabob())

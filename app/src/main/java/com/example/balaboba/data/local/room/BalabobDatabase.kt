@@ -3,7 +3,6 @@ package com.example.balaboba.data.local.room
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.balaboba.data.model.Balabob
 
 @Dao
 interface BalabobDatabase {
@@ -11,8 +10,8 @@ interface BalabobDatabase {
     suspend fun insertBalabob(balabob: BalabobEntity)
 
     @Query("SELECT * from balabobstable")
-    suspend fun getAllBalabobs(): MutableList<Balabob>
+    suspend fun getAll(): MutableList<BalabobEntity>
 
-    @Query("SELECT `query`,response,style from balabobstable")
-    suspend fun getAll(): MutableList<HistoryFragmentTuple>
+    @Query("DELETE from balabobstable where id = :id")
+    suspend fun deleteBalabob(id: Long)
 }

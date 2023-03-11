@@ -6,6 +6,7 @@ interface SpinnerPositionMapper {
     class Base(): SpinnerPositionMapper {
         override fun positionToIntro(position: Int): Int {
             return when (position) {
+                0 -> 0
                 1 -> 6
                 2 -> 8
                 3 -> 9

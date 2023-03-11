@@ -2,19 +2,24 @@ package com.example.balaboba.data.repositories
 
 import com.example.balaboba.data.local.room.BalabobDatabase
 import com.example.balaboba.data.local.room.BalabobEntity
-import com.example.balaboba.data.local.room.HistoryFragmentTuple
 import com.example.balaboba.data.model.BalabobaRequest
 import com.example.balaboba.data.model.BalabobaResponseUiState
 
 interface ManageBalabobs {
-    suspend fun saveBalabob(response: BalabobaResponseUiState.Success,request: BalabobaRequest,style:String)
-    suspend fun getAllBalabob(): MutableList<HistoryFragmentTuple>
+    suspend fun saveBalabob(
+        response: BalabobaResponseUiState.Success,
+        request: BalabobaRequest,
+        style: String,
+    )
 
-    class Base (private val dp: BalabobDatabase): ManageBalabobs {
+    suspend fun getAllBalabob(): MutableList<BalabobEntity>
+    suspend fun removeBalabob(id: Long)
+
+    class Base(private val dp: BalabobDatabase) : ManageBalabobs {
         override suspend fun saveBalabob(
             response: BalabobaResponseUiState.Success,
             request: BalabobaRequest,
-            style: String
+            style: String,
         ) {
             dp.insertBalabob(
                 BalabobEntity(
@@ -26,8 +31,10 @@ interface ManageBalabobs {
             )
         }
 
-        override suspend fun getAllBalabob(): MutableList<HistoryFragmentTuple> {
+        override suspend fun getAllBalabob(): MutableList<BalabobEntity> {
             return dp.getAll()
         }
+
+        override suspend fun removeBalabob(id: Long) = dp.deleteBalabob(id)
     }
 }

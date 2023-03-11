@@ -1,12 +1,12 @@
 package com.example.balaboba
 
-import com.example.balaboba.data.local.room.HistoryFragmentTuple
+import com.example.balaboba.data.local.room.BalabobEntity
 import com.example.balaboba.data.model.BalabobaRequest
 import com.example.balaboba.data.model.BalabobaResponseUiState
 import com.example.balaboba.data.repositories.ManageBalabobs
 
 internal class FakeManageBalabobs(
-    private val history:MutableList<HistoryFragmentTuple> = mutableListOf()
+    private val history:MutableList<BalabobEntity> = mutableListOf()
 ) : ManageBalabobs {
     override suspend fun saveBalabob(
         response: BalabobaResponseUiState.Success,
@@ -14,15 +14,23 @@ internal class FakeManageBalabobs(
         style: String
     ) {
         history.add(
-            HistoryFragmentTuple(
-                request.query,
-                response.getTextToShow(),
-                style
+            BalabobEntity(
+                id = 0,
+                query = request.query,
+                response = response.getTextToShow(),
+                filter = request.filter,
+                style = style
             )
         )
     }
 
-    override suspend fun getAllBalabob(): MutableList<HistoryFragmentTuple> {
+    override suspend fun getAllBalabob(): MutableList<BalabobEntity> {
         return history
+    }
+
+    override suspend fun removeBalabob(id: Long) {
+        history.removeAll {
+            it.id == id
+        }
     }
 }

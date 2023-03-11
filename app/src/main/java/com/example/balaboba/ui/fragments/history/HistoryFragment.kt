@@ -35,6 +35,11 @@ class HistoryFragment : Fragment() {
     ): View {
         binding = FragmentHistoryBinding.inflate(inflater, container, false)
         binding.rcView.adapter = adapter
+        val swipeListener = SwipeListener(){
+            vModel.deleteBalabob(adapter.getId(it))
+            adapter.removeItem(it)
+        }
+        swipeListener.attachToRecyclerView(binding.rcView)
 
         vModel.observe(viewLifecycleOwner) {
             if (it.isEmpty()) context.showLongToast(R.string.error_db_is_empty)

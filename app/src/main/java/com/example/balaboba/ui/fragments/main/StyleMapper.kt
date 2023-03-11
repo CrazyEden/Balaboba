@@ -9,7 +9,7 @@ interface StyleMapper {
     class Base(private val context: Context): StyleMapper {
         override fun toStyleString(style: Int): String {
             return when (style) {
-                0 -> context.getString(R.string.fifth_style)
+                0 -> context.getString(R.string.first_style)
                 6 -> context.getString(R.string.second_style)
                 8 -> context.getString(R.string.third_style)
                 9 -> context.getString(R.string.fourth_style)
